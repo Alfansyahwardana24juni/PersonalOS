@@ -56,5 +56,6 @@ function triggerQuickAdd() {
         }, 300);
     }
     
-    // TODO: Open modal or command palette for Quick Add
+    // Redirect to tasks page for quick adding
+    setTimeout(() => { window.location.href = 'tasks.html'; }, 300);
 }

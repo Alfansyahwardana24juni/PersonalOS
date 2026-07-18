@@ -91,18 +91,19 @@
     </style>
 
     <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
     </script>
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body
     class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-brand selection:text-white relative transition-colors duration-200">
 
-    <aside class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]"> <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]"> <img src="logo.png" alt="Logo" class="w-12 h-12 object-contain mr-3"> <h1 class="font-bold text-sm tracking-wide">Personal OS</h1> </div> <!-- Navigation Links --> <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar"> <div class="text-xs font-semibold text-gray-400 mb-4 px-3 uppercase tracking-wider">Ruang Kerja</div> <nav class="space-y-1"> <a href="index.html" id="nav-index" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> Dasbor </a> <a href="inbox.html" id="nav-inbox" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg> Kotak Masuk <span class="ml-auto bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-[10px] font-bold group-hover:bg-primary group-hover:text-white transition-colors dark:bg-[#18181b] dark:text-gray-400">3</span> </a> <a href="tasks.html" id="nav-tasks" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Tugas </a> <a href="calendar.html" id="nav-calendar" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> Kalender </a> <a href="notes.html" id="nav-notes" class="flex items-center px-3 py-2 bg-gray-100 rounded-md text-sm font-semibold text-primary transition-colors group dark:bg-[#27272a]"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Catatan </a> <a href="finance.html" id="nav-finance" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Keuangan </a> </nav> </div> <!-- Settings --> <div class="p-4 border-t border-border dark:border-[#27272a]"> <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Pengaturan </a> </div> </aside>
+    <aside class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]"> <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]"> <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain mr-3" id="app-logo"> <h1 class="font-bold text-sm tracking-wide">Personal OS</h1> </div> <!-- Navigation Links --> <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar"> <div class="text-xs font-semibold text-gray-400 mb-4 px-3 uppercase tracking-wider">Ruang Kerja</div> <nav class="space-y-1"> <a href="index.html" id="nav-index" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> Dasbor </a>  <a href="tasks.html" id="nav-tasks" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Tugas </a> <a href="calendar.html" id="nav-calendar" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> Kalender </a> <a href="notes.html" id="nav-notes" class="flex items-center px-3 py-2 bg-gray-100 rounded-md text-sm font-semibold text-primary transition-colors group dark:bg-[#27272a]"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Catatan </a> <a href="finance.html" id="nav-finance" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Keuangan </a> </nav> </div>  </aside>
 
     <main class="flex-1 flex flex-col h-full overflow-hidden relative bg-background transition-colors duration-200">
         <!-- Topbar Header -->
@@ -186,6 +187,16 @@
                                 </svg>
                                 Edit Profil
                             </a>
+        <a href="#" id="install-pwa-btn" class="hidden flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors dark:text-gray-400 dark:hover:bg-[#27272a]">
+            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            Install Aplikasi
+        </a>
+        
+        <a href="#" id="install-pwa-btn" class="hidden flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors dark:text-gray-400 dark:hover:bg-[#27272a]">
+            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            Install Aplikasi
+        </a>
+        
                             <a href="#"
                                 class="flex items-center px-3 py-2 text-sm font-medium text-zinc-600 hover:text-brand hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg transition-colors dark:text-zinc-400">
                                 <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -371,9 +382,65 @@
         <nav class="md:hidden absolute bottom-0 left-0 right-0 bg-surface border-t border-border flex justify-around items-center h-16 z-40 px-2 pb-safe shadow-[0_-1px_10px_rgba(0,0,0,0.02)] dark:bg-surface dark:border-[#27272a]"> <a href="index.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> <span class="text-[10px] font-medium">Beranda</span> </a> <a href="tasks.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-[10px] font-medium">Tugas</span> </a> <a href="calendar.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> <span class="text-[10px] font-medium">Kalender</span> </a> <a href="notes.html" class="flex flex-col items-center justify-center w-full h-full text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> <span class="text-[10px] font-medium">Catatan</span> </a> <a href="finance.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-[10px] font-medium">Keuangan</span> </a> </nav>
     </main>
 
-    <div id="toast-container" class="fixed bottom-20 md:bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-20 md:bottom-20 right-4 z-50 space-y-2 pointer-events-none"></div>
 
     <script>
+
+        // Fungsi Modal Konfirmasi Kustom
+        function showConfirmModal(message, onConfirm) {
+            let container = document.getElementById('notes-confirm-modal');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'notes-confirm-modal';
+                container.className = 'fixed inset-0 z-[99999] flex items-center justify-center hidden';
+                container.innerHTML = `
+                    <div class="absolute inset-0 bg-zinc-900/40 backdrop-blur-sm transition-opacity opacity-0" id="notes-confirm-backdrop"></div>
+                    <div class="relative bg-surface rounded-xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden border border-border flex flex-col transform scale-95 opacity-0 transition-all duration-200 dark:bg-surface dark:border-[#27272a]" id="notes-confirm-content">
+                        <div class="px-5 py-4 border-b border-border bg-zinc-50/50 dark:border-[#27272a] dark:bg-[#09090b]/50">
+                            <h3 class="text-sm font-semibold text-primary">Konfirmasi</h3>
+                        </div>
+                        <div class="p-5">
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400" id="notes-confirm-msg"></p>
+                        </div>
+                        <div class="px-5 py-4 bg-zinc-50 flex justify-end gap-2 border-t border-border dark:bg-[#09090b] dark:border-[#27272a]">
+                            <button id="notes-confirm-no" class="px-4 py-2 text-xs font-medium text-zinc-600 hover:text-primary bg-white border border-zinc-300 rounded-lg hover:bg-zinc-50 transition-colors dark:text-zinc-400 dark:bg-surface dark:border-[#3f3f46] dark:hover:bg-[#27272a]">Tidak</button>
+                            <button id="notes-confirm-yes" class="px-4 py-2 text-xs font-medium text-white bg-danger rounded-lg hover:bg-red-700 transition-colors">Iyyah</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(container);
+            }
+            
+            document.getElementById('notes-confirm-msg').innerText = message;
+            const modal = container;
+            const backdrop = document.getElementById('notes-confirm-backdrop');
+            const content = document.getElementById('notes-confirm-content');
+            
+            modal.classList.remove('hidden');
+            // trigger reflow
+            void modal.offsetWidth;
+            
+            backdrop.classList.remove('opacity-0');
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+            
+            const cleanup = () => {
+                backdrop.classList.add('opacity-0');
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 200);
+            };
+            
+            document.getElementById('notes-confirm-yes').onclick = () => {
+                cleanup();
+                if (onConfirm) onConfirm();
+            };
+            document.getElementById('notes-confirm-no').onclick = cleanup;
+            backdrop.onclick = cleanup;
+        }
+
         // State Aplikasi Utama
         let notes = [];
         let selectedNoteId = null;
@@ -646,24 +713,47 @@
             if (index === -1) return;
 
             // Konfirmasi kustom/dialog halus dibanding menggunakan window.confirm
-            if (confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
-                notes.splice(index, 1);
-                saveNotesToStorage();
-                showSuccessToast('Catatan berhasil dihapus!');
+            if (true) {
+                showConfirmModal('Apakah Anda yakin ingin menghapus catatan ini?', () => {
+                    notes.splice(index, 1);
+                    saveNotesToStorage();
+                    showSuccessToast('Catatan berhasil dihapus!');
 
-                // Bersihkan state & tutup editor di ponsel
-                selectedNoteId = null;
-                closeNoteEditor();
-                renderNotesList();
+                    // Bersihkan state & tutup editor di ponsel
+                    selectedNoteId = null;
+                    closeNoteEditor();
+                    renderNotesList();
 
-                // Di desktop, pilih catatan berikutnya jika masih ada sisa
-                if (notes.length > 0 && window.innerWidth >= 768) {
-                    selectNote(notes[0].id);
-                } else {
-                    // Kosongkan form editor jika tidak ada catatan tersisa
-                    document.getElementById('editor-title').value = '';
-                    document.getElementById('editor-content').value = '';
-                    document.getElementById('editor-folder-name').innerText = 'Pilih Tag';
+                    // Di desktop, pilih catatan berikutnya jika masih ada sisa
+                    if (notes.length > 0 && window.innerWidth >= 768) {
+                        selectNote(notes[0].id);
+                    } else {
+                        // Kosongkan form editor jika tidak ada catatan tersisa
+                        document.getElementById('editor-title').value = '';
+                        document.getElementById('editor-content').value = '';
+                        document.getElementById('editor-folder-name').innerText = 'Pilih Tag';
+                    }
+                });
+            } else {
+                if (confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
+                    notes.splice(index, 1);
+                    saveNotesToStorage();
+                    showSuccessToast('Catatan berhasil dihapus!');
+
+                    // Bersihkan state & tutup editor di ponsel
+                    selectedNoteId = null;
+                    closeNoteEditor();
+                    renderNotesList();
+
+                    // Di desktop, pilih catatan berikutnya jika masih ada sisa
+                    if (notes.length > 0 && window.innerWidth >= 768) {
+                        selectNote(notes[0].id);
+                    } else {
+                        // Kosongkan form editor jika tidak ada catatan tersisa
+                        document.getElementById('editor-title').value = '';
+                        document.getElementById('editor-content').value = '';
+                        document.getElementById('editor-folder-name').innerText = 'Pilih Tag';
+                    }
                 }
             }
         }
