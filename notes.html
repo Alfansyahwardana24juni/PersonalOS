@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal OS - Catatan</title>
-    
-    <!-- Google Fonts: Inter -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        primary: '#111827',
-                        background: '#F8FAFC',
-                        surface: '#FFFFFF',
-                        border: '#E5E7EB',
-                        success: '#16A34A',
-                        danger: '#DC2626',
-                        warning: '#F59E0B',
+                        primary: 'var(--color-primary)',
+                        background: 'var(--color-background)',
+                        surface: 'var(--color-surface)',
+                        border: 'var(--color-border)',
+                        success: 'var(--color-success)',
+                        danger: 'var(--color-danger)',
+                        warning: 'var(--color-warning)',
+                        secondary: 'var(--color-secondary)',
+                        brand: 'var(--color-brand)'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -32,107 +34,178 @@
             }
         }
     </script>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        :root {
+            --color-primary: #18181b;
+            /* Zinc 900 */
+            --color-secondary: #71717a;
+            /* Zinc 500 */
+            --color-background: #fafafa;
+            /* Zinc 50 */
+            --color-surface: #ffffff;
+            --color-border: #e4e4e7;
+            /* Zinc 200 */
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --color-warning: #f59e0b;
+            --color-brand: #3b82f6;
+            /* Premium Blue */
+        }
+
+        .dark {
+            --color-primary: #f4f4f5;
+            /* Zinc 100 */
+            --color-secondary: #a1a1aa;
+            /* Zinc 400 */
+            --color-background: #09090b;
+            /* Zinc 950 */
+            --color-surface: #18181b;
+            /* Zinc 900 */
+            --color-border: #27272a;
+            /* Zinc 800 */
+            --color-success: #34d399;
+            --color-danger: #f87171;
+            --color-warning: #fbbf24;
+            --color-brand: #60a5fa;
+        }
+
+        /* Scrollbar minimalis kustom */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d4d4d8;
+            border-radius: 9999px;
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+        }
+    </style>
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </head>
-<body class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-primary selection:text-white relative">
 
-        <!-- Desktop Sidebar -->
-    <aside class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20">
-        <div class="h-16 flex items-center px-6 border-b border-border">
-            <div class="w-6 h-6 bg-primary rounded-md flex items-center justify-center mr-3">
-                <span class="text-white text-xs font-bold">OS</span>
-            </div>
-            <h1 class="font-bold text-sm tracking-wide">Personal OS</h1>
-        </div>
-        
-        <!-- Navigation Links -->
-        <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar">
-            <div class="text-xs font-semibold text-gray-400 mb-4 px-3 uppercase tracking-wider">Ruang Kerja</div>
-            <nav class="space-y-1">
-                <a href="index.html" id="nav-index" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    Dasbor
-                </a>
-                <a href="inbox.html" id="nav-inbox" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-                    Kotak Masuk
-                    <span class="ml-auto bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-[10px] font-bold group-hover:bg-primary group-hover:text-white transition-colors">3</span>
-                </a>
-                <a href="tasks.html" id="nav-tasks" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Tugas
-                </a>
-                <a href="calendar.html" id="nav-calendar" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    Kalender
-                </a>
-                <a href="notes.html" id="nav-notes" class="flex items-center px-3 py-2 bg-gray-100 rounded-md text-sm font-semibold text-primary transition-colors group">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                    Catatan
-                </a>
-                <a href="finance.html" id="nav-finance" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Keuangan
-                </a>
-            </nav>
-        </div>
-        <!-- Settings -->
-        <div class="p-4 border-t border-border">
-             <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors">
-                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                Pengaturan
-            </a>
-        </div>
-    </aside>
+<body
+    class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-brand selection:text-white relative transition-colors duration-200">
 
-    <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col h-full overflow-hidden relative bg-background">
-        <!-- Topbar -->
-        <header class="h-16 bg-surface border-b border-border flex items-center justify-between px-6 shrink-0 z-10">
+    <aside class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]"> <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]"> <img src="logo.png" alt="Logo" class="w-12 h-12 object-contain mr-3"> <h1 class="font-bold text-sm tracking-wide">Personal OS</h1> </div> <!-- Navigation Links --> <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar"> <div class="text-xs font-semibold text-gray-400 mb-4 px-3 uppercase tracking-wider">Ruang Kerja</div> <nav class="space-y-1"> <a href="index.html" id="nav-index" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> Dasbor </a> <a href="inbox.html" id="nav-inbox" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg> Kotak Masuk <span class="ml-auto bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-[10px] font-bold group-hover:bg-primary group-hover:text-white transition-colors dark:bg-[#18181b] dark:text-gray-400">3</span> </a> <a href="tasks.html" id="nav-tasks" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Tugas </a> <a href="calendar.html" id="nav-calendar" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> Kalender </a> <a href="notes.html" id="nav-notes" class="flex items-center px-3 py-2 bg-gray-100 rounded-md text-sm font-semibold text-primary transition-colors group dark:bg-[#27272a]"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Catatan </a> <a href="finance.html" id="nav-finance" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Keuangan </a> </nav> </div> <!-- Settings --> <div class="p-4 border-t border-border dark:border-[#27272a]"> <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors dark:hover:bg-[#27272a] dark:text-gray-400"> <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Pengaturan </a> </div> </aside>
+
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative bg-background transition-colors duration-200">
+        <!-- Topbar Header -->
+        <header
+            class="h-16 bg-surface border-b border-border flex items-center justify-between px-6 shrink-0 z-10 transition-colors duration-200">
             <div class="flex-1 max-w-lg">
                 <h1 class="text-xl font-bold text-primary">Catatan</h1>
             </div>
-            <div class="flex items-center space-x-4 ml-4">
-                                <!-- NEW: Inbox Icon specifically moved to header for mobile -->
-                <a href="inbox.html" class="md:hidden relative p-2 text-gray-400 hover:text-primary transition-colors">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-                    <span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-danger ring-2 ring-surface"></span>
-                </a>
-                <button class="relative text-gray-400 hover:text-primary transition-colors">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-danger ring-2 ring-surface"></span>
+
+            <div class="flex items-center space-x-3 ml-4">
+                <!-- Toggle Dark Mode (Fungsional) -->
+                <button id="dark-mode-toggle" onclick="toggleDarkMode()"
+                    class="p-2 text-zinc-400 hover:text-primary hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-all"
+                    title="Ubah Tema">
+                    <!-- Moon Icon -->
+                    <svg id="moon-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.364l-.707.707M12 8a4 4 0 100 8 4 4 0 000-8z">
+                        </path>
+                    </svg>
+                    <!-- Sun Icon -->
+                    <svg id="sun-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
                 </button>
+
+                <!-- Kotak Masuk Seluler (Tampak hanya di hp) -->
+                <a href="inbox.html" class="md:hidden relative p-2 text-zinc-400 hover:text-primary transition-colors">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                        </path>
+                    </svg>
+                    <span
+                        class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-danger ring-2 ring-surface"></span>
+                </a>
+
+                <!-- Notifikasi -->
+                <button class="relative p-2 text-zinc-400 hover:text-primary transition-colors">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                        </path>
+                    </svg>
+                    <span
+                        class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-danger ring-2 ring-surface"></span>
+                </button>
+
+                <!-- Profil Dropdown -->
                 <div class="relative" id="profile-menu-container">
-                    <div class="h-8 w-8 rounded-full border border-border overflow-hidden cursor-pointer hover:ring-2 hover:ring-gray-100 transition-all" onclick="document.getElementById('profile-dropdown').classList.toggle('opacity-0'); document.getElementById('profile-dropdown').classList.toggle('invisible'); document.getElementById('profile-dropdown').classList.toggle('scale-95'); document.getElementById('profile-dropdown').classList.toggle('scale-100'); event.stopPropagation();">
-                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC" alt="Avatar" class="h-full w-full object-cover">
+                    <div class="h-8 w-8 rounded-full border border-border overflow-hidden cursor-pointer hover:ring-2 hover:ring-zinc-200 transition-all"
+                        onclick="toggleProfileDropdown(event)">
+                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC"
+                            alt="Avatar" class="h-full w-full object-cover">
                     </div>
-                    
-                    <!-- Dropdown -->
-                    <div id="profile-dropdown" class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible transition-all transform scale-95 origin-top-right z-50">
-                        <div class="p-4 border-b border-gray-50 flex items-center gap-3">
-                            <div class="h-10 w-10 rounded-full border border-gray-200 overflow-hidden shrink-0 bg-gray-50">
-                                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC" alt="Avatar" class="h-full w-full object-cover">
+
+                    <!-- Dropdown Element -->
+                    <div id="profile-dropdown"
+                        class="absolute right-0 mt-2 w-56 bg-surface rounded-xl shadow-lg border border-border opacity-0 invisible transition-all transform scale-95 origin-top-right z-50">
+                        <div class="p-4 border-b border-border flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full border border-border overflow-hidden shrink-0 bg-zinc-50 dark:bg-zinc-800">
+                                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC"
+                                    alt="Avatar" class="h-full w-full object-cover">
                             </div>
                             <div>
-                                <p class="text-sm font-bold text-gray-800">Felix</p>
-                                <p class="text-[10px] text-gray-500">felix@example.com</p>
+                                <p class="text-sm font-bold text-zinc-800 dark:text-zinc-200">Felix</p>
+                                <p class="text-[10px] text-zinc-500">felix@example.com</p>
                             </div>
                         </div>
                         <div class="p-2">
-                            <a href="profile.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors">
-                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <a href="profile.html"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-zinc-600 hover:text-brand hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg transition-colors dark:text-zinc-400">
+                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
                                 Edit Profil
                             </a>
-                            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors">
-                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <a href="#"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-zinc-600 hover:text-brand hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg transition-colors dark:text-zinc-400">
+                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
                                 Pengaturan Akun
                             </a>
                         </div>
-                        <div class="p-2 border-t border-gray-50">
-                            <button onclick="alert('Anda telah keluar.')" class="w-full flex items-center px-3 py-2 text-sm font-medium text-danger hover:bg-red-50 rounded-lg transition-colors">
-                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        <div class="p-2 border-t border-border">
+                            <button onclick="logoutSimulation()"
+                                class="w-full flex items-center px-3 py-2 text-sm font-medium text-danger hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors">
+                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                    </path>
+                                </svg>
                                 Keluar
                             </button>
                         </div>
@@ -141,231 +214,588 @@
             </div>
         </header>
 
-        <!-- Notes Layout (2-Pane Desktop, Grid Mobile) -->
         <div class="flex-1 flex h-[calc(100vh-4rem)] overflow-hidden relative">
-            
-            <!-- Left Panel (Notes List / Mobile Grid) -->
-            <div id="notes-list-panel" class="w-full md:w-[320px] lg:w-[380px] bg-surface border-r border-border flex flex-col h-full shrink-0">
-                <!-- Header & Filters -->
+
+            <!-- Panel Kiri (Daftar Catatan) -->
+            <div id="notes-list-panel"
+                class="w-full md:w-[320px] lg:w-[380px] bg-surface border-r border-border flex flex-col h-full shrink-0 transition-colors duration-200">
+                <!-- Pencarian & Filter Kategori -->
                 <div class="p-4 lg:p-6 border-b border-border shrink-0">
                     <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-xl font-semibold tracking-tight text-primary">Catatan</h2>
-                        <button onclick="openNoteEditor(true)" class="p-2 bg-gray-100 text-primary rounded-lg hover:bg-gray-200 transition-colors tooltip" title="Catatan Baru">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        <h2 class="text-xl font-bold tracking-tight text-primary">Catatan Saya</h2>
+                        <button onclick="createNewNote()"
+                            class="p-2 bg-zinc-100 dark:bg-zinc-800 text-primary rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                            title="Catatan Baru">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v16m8-8H4"></path>
+                            </svg>
                         </button>
                     </div>
-                    <!-- Search specifically for notes -->
+
+                    <!-- Kolom Pencarian Fungsional -->
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            <svg class="h-4 w-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
                         </div>
-                        <input type="text" class="block w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-transparent rounded-lg text-xs font-medium placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="Cari dalam catatan...">
+                        <input id="note-search" oninput="handleSearch(this.value)" type="text"
+                            class="block w-full pl-9 pr-4 py-2.5 bg-zinc-50 border border-border rounded-lg text-xs font-medium placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white dark:bg-zinc-900 transition-all"
+                            placeholder="Cari dalam catatan...">
                     </div>
-                    <!-- Folder/Tags Pills -->
-                    <div class="flex gap-2 mt-4 overflow-x-auto custom-scrollbar pb-1">
-                        <span class="px-3 py-1 bg-primary text-white text-[10px] sm:text-xs font-medium rounded-full cursor-pointer whitespace-nowrap">Semua</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 text-[10px] sm:text-xs font-medium rounded-full cursor-pointer whitespace-nowrap transition-colors">Ide</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 text-[10px] sm:text-xs font-medium rounded-full cursor-pointer whitespace-nowrap transition-colors">Jurnal</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 text-[10px] sm:text-xs font-medium rounded-full cursor-pointer whitespace-nowrap transition-colors">Kerja</span>
+
+                    <!-- Kategori Pills Fungsional -->
+                    <div class="flex gap-1.5 mt-4 overflow-x-auto custom-scrollbar pb-1.5"
+                        id="category-pills-container">
+                        <!-- Diisi secara dinamis melalui JavaScript -->
                     </div>
                 </div>
 
-                <!-- Notes Cards Container (Grid on Mobile, List on Desktop) -->
-                <!-- columns-2 or grid-cols-2 creates the masonry/box collection on mobile -->
-                <div class="flex-1 overflow-y-auto custom-scrollbar p-4 lg:p-6 pb-24 md:pb-6 bg-gray-50/30 md:bg-transparent">
-                    <div class="grid grid-cols-2 md:grid-cols-1 gap-3 md:gap-2 items-start">
-                        
-                        <!-- Note Card 1 (Active simulation on desktop) -->
-                        <div class="bg-primary md:bg-gray-100 border border-transparent md:border-border p-3 md:p-4 rounded-xl cursor-pointer hover:shadow-sm transition-all" onclick="openNoteEditor()">
-                            <h3 class="text-sm font-semibold text-white md:text-primary mb-1 line-clamp-2">Ide Produk SaaS 2026</h3>
-                            <p class="text-[11px] md:text-xs text-gray-300 md:text-gray-500 line-clamp-4 md:line-clamp-2 mb-3 leading-relaxed">Beberapa ide untuk aplikasi B2B yang fokus pada produktivitas tim kecil tanpa framework yang berat. Menggunakan pendekatan...</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-[9px] md:text-[10px] font-medium text-gray-400">14 Jul</span>
-                                <span class="inline-flex items-center rounded-md bg-white/20 md:bg-white px-2 py-0.5 text-[9px] font-medium text-white md:text-gray-600 shadow-sm md:shadow-none border border-transparent md:border-border">Ide</span>
-                            </div>
-                        </div>
-
-                        <!-- Note Card 2 -->
-                        <div class="bg-surface border border-border p-3 md:p-4 rounded-xl cursor-pointer hover:border-gray-300 hover:shadow-sm transition-all" onclick="openNoteEditor()">
-                            <h3 class="text-sm font-semibold text-primary mb-1 line-clamp-2">Meeting Notes: Desain Sistem</h3>
-                            <p class="text-[11px] md:text-xs text-gray-500 line-clamp-4 md:line-clamp-2 mb-3 leading-relaxed">- Hapus ikon merah pada dropdown.<br>- Jangan tampilkan hitungan (2/4) di subtask.<br>- Buat tampilan board yang mulus.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-[9px] md:text-[10px] font-medium text-gray-400">Hari ini</span>
-                                <span class="inline-flex items-center rounded-md bg-gray-100 px-2 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-200">Kerja</span>
-                            </div>
-                        </div>
-
-                        <!-- Note Card 3 -->
-                        <div class="bg-surface border border-border p-3 md:p-4 rounded-xl cursor-pointer hover:border-gray-300 hover:shadow-sm transition-all" onclick="openNoteEditor()">
-                            <h3 class="text-sm font-semibold text-primary mb-1 line-clamp-2">Jurnal Harian</h3>
-                            <p class="text-[11px] md:text-xs text-gray-500 line-clamp-4 md:line-clamp-2 mb-3 leading-relaxed">Hari yang sangat produktif. Berhasil menyelesaikan fitur drag and drop untuk kanban board menggunakan SortableJS tanpa kendala.</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-[9px] md:text-[10px] font-medium text-gray-400">Kemarin</span>
-                                <div class="flex gap-1">
-                                    <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                    <span class="inline-flex items-center rounded-md bg-gray-100 px-2 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-200">Jurnal</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Note Card 4 -->
-                        <div class="bg-surface border border-border p-3 md:p-4 rounded-xl cursor-pointer hover:border-gray-300 hover:shadow-sm transition-all" onclick="openNoteEditor()">
-                            <h3 class="text-sm font-semibold text-primary mb-1 line-clamp-2">Buku Resep Sehat</h3>
-                            <p class="text-[11px] md:text-xs text-gray-500 line-clamp-4 md:line-clamp-2 mb-3 leading-relaxed">1. Oatmeal pisang.<br>2. Salad ayam panggang.<br>Coba kurangi asupan gula harian...</p>
-                            <div class="flex items-center justify-between">
-                                <span class="text-[9px] md:text-[10px] font-medium text-gray-400">10 Jul</span>
-                                <span class="inline-flex items-center rounded-md bg-gray-100 px-2 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-200">Personal</span>
-                            </div>
-                        </div>
-
-                    </div>
+                <!-- Wadah List Kartu Catatan Dinamis -->
+                <div id="notes-cards-list"
+                    class="flex-1 overflow-y-auto custom-scrollbar p-4 lg:p-6 pb-24 md:pb-6 bg-zinc-50/40 dark:bg-zinc-900/10 space-y-2">
+                    <!-- Diisi secara dinamis melalui JavaScript -->
                 </div>
             </div>
 
-            <!-- Right Panel (Editor Area) -->
-            <!-- Absolute and hidden on mobile by default, shown when a card is clicked -->
-            <!-- On desktop, it takes remaining flex space -->
-            <div id="notes-editor-panel" class="absolute inset-0 md:relative md:flex-1 bg-surface z-20 flex flex-col transition-transform duration-300 translate-y-full md:translate-y-0 hidden md:flex shadow-2xl md:shadow-none">
-                
-                <!-- Editor Toolbar -->
-                <div class="h-16 px-4 lg:px-8 border-b border-border flex items-center justify-between bg-surface/80 backdrop-blur-md shrink-0 sticky top-0 z-10">
+            <!-- Tampil secara absolut/layar penuh di seluler jika catatan dipilih -->
+            <div id="notes-editor-panel"
+                class="absolute inset-0 md:relative md:flex-1 bg-surface z-20 flex flex-col transition-transform duration-300 translate-y-full md:translate-y-0 hidden md:flex dark:bg-surface">
+
+                <!-- Toolbar Atas Editor -->
+                <div
+                    class="h-16 px-4 lg:px-8 border-b border-border flex items-center justify-between bg-surface shrink-0 sticky top-0 z-10">
                     <div class="flex items-center gap-1 md:gap-4">
-                        <!-- Back Button (Mobile Only) -->
-                        <button onclick="closeNoteEditor()" class="md:hidden p-2 -ml-2 text-gray-500 hover:text-primary hover:bg-gray-100 rounded-lg transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        <!-- Tombol Kembali (Khusus Mobile) -->
+                        <button onclick="closeNoteEditor()"
+                            class="md:hidden p-2 -ml-2 text-zinc-500 hover:text-primary hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7"></path>
+                            </svg>
                         </button>
-                        
-                        <!-- Folder Dropdown -->
-                        <div class="flex items-center text-xs font-semibold text-gray-600 hover:text-primary cursor-pointer px-2 py-1.5 hover:bg-gray-100 rounded-md transition-colors border border-transparent hover:border-border">
-                            <svg class="w-4 h-4 mr-1.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                            <span id="editor-folder-name">Ide</span>
-                            <svg class="w-3 h-3 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+
+                        <!-- Dropdown Pilihan Kategori di Toolbar -->
+                        <div class="relative">
+                            <button onclick="toggleCategorySelectDropdown(event)"
+                                class="flex items-center text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-primary cursor-pointer px-2.5 py-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors border border-border">
+                                <svg class="w-4 h-4 mr-1.5 text-zinc-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z">
+                                    </path>
+                                </svg>
+                                <span id="editor-folder-name">Pilih Tag</span>
+                                <svg class="w-3 h-3 ml-1 text-zinc-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+
+                            <!-- Tag Selector Menu -->
+                            <div id="category-selector-dropdown"
+                                class="absolute left-0 mt-1.5 w-40 bg-surface border border-border rounded-lg shadow-lg opacity-0 invisible transition-all z-50 p-1">
+                                <button onclick="setNoteCategory('Ide')"
+                                    class="w-full text-left px-3 py-1.5 text-xs font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded text-zinc-700 dark:text-zinc-300">Ide</button>
+                                <button onclick="setNoteCategory('Jurnal')"
+                                    class="w-full text-left px-3 py-1.5 text-xs font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded text-zinc-700 dark:text-zinc-300">Jurnal</button>
+                                <button onclick="setNoteCategory('Kerja')"
+                                    class="w-full text-left px-3 py-1.5 text-xs font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded text-zinc-700 dark:text-zinc-300">Kerja</button>
+                                <button onclick="setNoteCategory('Personal')"
+                                    class="w-full text-left px-3 py-1.5 text-xs font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded text-zinc-700 dark:text-zinc-300">Personal</button>
+                            </div>
                         </div>
+
+                        <span id="editor-save-status" class="text-[10px] text-zinc-400 font-medium">Disimpan di
+                            browser</span>
                     </div>
-                    
-                    <div class="flex items-center gap-1 sm:gap-2 text-gray-400">
-                        <!-- Add Tag -->
-                        <button class="p-1.5 hover:text-primary hover:bg-gray-100 rounded-md transition-colors tooltip" title="Tambahkan Tag">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+
+                    <!-- Aksi Editor (Hapus, Berbagi) -->
+                    <div class="flex items-center gap-1 sm:gap-2 text-zinc-400">
+                        <!-- Lampiran File -->
+                        <button onclick="showInfoToast('Fitur lampirkan file segera hadir!')"
+                            class="p-1.5 hover:text-primary hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-md transition-colors"
+                            title="Lampirkan File">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
+                                </path>
+                            </svg>
                         </button>
-                        <!-- Attach File -->
-                        <button class="p-1.5 hover:text-primary hover:bg-gray-100 rounded-md transition-colors tooltip" title="Lampirkan File">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                        </button>
-                        <!-- Divider -->
                         <div class="w-px h-4 bg-border mx-1"></div>
-                        <!-- Delete Note -->
-                        <button class="p-1.5 hover:text-danger hover:bg-red-50 rounded-md transition-colors tooltip" title="Hapus Catatan">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        <!-- Hapus Catatan Aktif -->
+                        <button onclick="deleteActiveNote()"
+                            class="p-1.5 hover:text-danger hover:bg-red-50 dark:hover:bg-red-950/30 rounded-md transition-colors"
+                            title="Hapus Catatan">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                </path>
+                            </svg>
                         </button>
                     </div>
                 </div>
 
-                <!-- Editor Writing Area -->
-                <div class="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-12 pb-24 md:pb-12 bg-white">
+                <div
+                    class="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-12 pb-24 md:pb-12 bg-white dark:bg-[#0c0c0e]">
                     <div class="max-w-3xl mx-auto h-full flex flex-col">
-                        <!-- Auto-resizing Title Input -->
-                        <textarea id="editor-title" class="w-full bg-transparent border-none focus:outline-none text-2xl md:text-3xl font-bold text-primary placeholder-gray-300 resize-none mb-6 leading-tight" rows="1" placeholder="Judul Catatan..." oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">Ide Produk SaaS 2026</textarea>
-                        
-                        <!-- Meta info (Date) -->
-                        <p class="text-xs text-gray-400 mb-8 font-medium">Terakhir diubah: Hari ini, 15:30</p>
-                        
-                        <!-- Body Input -->
-                        <textarea id="editor-content" class="w-full bg-transparent border-none focus:outline-none text-sm md:text-base text-gray-700 placeholder-gray-400 resize-none flex-1 leading-loose" placeholder="Mulai mengetik... (Mendukung format Markdown)">Beberapa ide untuk aplikasi B2B yang fokus pada produktivitas tim kecil tanpa framework yang berat.
+                        <!-- Input Judul Otomatis Melar -->
+                        <textarea id="editor-title"
+                            class="w-full bg-transparent border-none focus:outline-none text-2xl md:text-3xl font-bold text-primary placeholder-zinc-300 dark:placeholder-zinc-700 resize-none mb-4 leading-tight"
+                            rows="1" placeholder="Judul Catatan..."
+                            oninput="autoExpandTextarea(this); handleNoteInput()"></textarea>
 
-## Mengapa Vanilla JS?
-- **Kecepatan**: Sangat ringan dan memuat seketika di semua perangkat.
-- **Kemandirian**: Tidak terikat pada ekosistem node_modules yang usianya kadang pendek.
-- **Kemudahan Maintain**: Jauh lebih mudah dipahami dan minim dependensi pihak ketiga.
+                        <!-- Metadata Tanggal -->
+                        <div class="flex items-center space-x-2 text-xs text-zinc-400 mb-6 font-medium">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            <span id="editor-date">Hari ini, 12:00</span>
+                        </div>
 
-## Rencana Fitur
-1. Modul Tasks dengan Kanban board yang sudah dilengkapi drag-and-drop.
-2. Modul Notes dengan editor minimalis dan bebas distraksi.
-3. Habit tracker (fokus pada runtun waktu/streaks).
-4. Keuangan (hanya mencatat pemasukan dan pengeluaran secara cepat).
-
-Semua data bisa disimpan sementara via LocalStorage sebelum sinkronisasi ke cloud via API ringan.</textarea>
+                        <!-- Input Isi Utama -->
+                        <textarea id="editor-content"
+                            class="w-full bg-transparent border-none focus:outline-none text-sm md:text-base text-zinc-700 dark:text-zinc-300 placeholder-zinc-400 resize-none flex-1 leading-loose"
+                            placeholder="Mulai menulis di sini... (Perubahan akan disimpan otomatis)"
+                            oninput="handleNoteInput()"></textarea>
                     </div>
                 </div>
             </div>
-            
         </div>
 
-                <!-- Mobile Bottom Navigation (Exactly 5 items!) -->
-        <nav class="md:hidden absolute bottom-0 left-0 right-0 bg-surface border-t border-border flex justify-around items-center h-16 z-40 px-2 pb-safe shadow-[0_-1px_10px_rgba(0,0,0,0.02)]">
-            <a href="index.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
-                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                <span class="text-[10px] font-medium">Beranda</span>
-            </a>
-            <a href="tasks.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
-                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span class="text-[10px] font-medium">Tugas</span>
-            </a>
-            <a href="calendar.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
-                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                <span class="text-[10px] font-medium">Kalender</span>
-            </a>
-            <a href="notes.html" class="flex flex-col items-center justify-center w-full h-full text-primary transition-colors">
-                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                <span class="text-[10px] font-medium">Catatan</span>
-            </a>
-            <a href="finance.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
-                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span class="text-[10px] font-medium">Keuangan</span>
-            </a>
-        </nav>
-
+        <nav class="md:hidden absolute bottom-0 left-0 right-0 bg-surface border-t border-border flex justify-around items-center h-16 z-40 px-2 pb-safe shadow-[0_-1px_10px_rgba(0,0,0,0.02)] dark:bg-surface dark:border-[#27272a]"> <a href="index.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> <span class="text-[10px] font-medium">Beranda</span> </a> <a href="tasks.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-[10px] font-medium">Tugas</span> </a> <a href="calendar.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> <span class="text-[10px] font-medium">Kalender</span> </a> <a href="notes.html" class="flex flex-col items-center justify-center w-full h-full text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> <span class="text-[10px] font-medium">Catatan</span> </a> <a href="finance.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors"> <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span class="text-[10px] font-medium">Keuangan</span> </a> </nav>
     </main>
 
-    <!-- Scripts -->
-    <script src="js/main.js"></script>
+    <div id="toast-container" class="fixed bottom-20 md:bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
     <script>
-        const editorPanel = document.getElementById('notes-editor-panel');
-        const titleInput = document.getElementById('editor-title');
-        const contentInput = document.getElementById('editor-content');
-        
-        function openNoteEditor(isNew = false) {
-            // Unhide the panel for mobile view and translate it up/in
-            editorPanel.classList.remove('hidden');
-            
-            // Allow browser to render 'display: flex' before animating transform
-            setTimeout(() => {
-                editorPanel.classList.remove('translate-y-full');
-            }, 10);
-            
-            if (isNew) {
-                // Clear inputs for new note
-                titleInput.value = '';
-                contentInput.value = '';
-                document.getElementById('editor-folder-name').innerText = 'Pilih Folder...';
-                
-                // Focus on title
-                setTimeout(() => { titleInput.focus(); }, 300);
+        // State Aplikasi Utama
+        let notes = [];
+        let selectedNoteId = null;
+        let activeCategory = 'Semua';
+        let searchQuery = '';
+
+        // Mock Catatan Bawaan Pertama Kali
+        const defaultNotes = [
+            {
+                id: "note-1",
+                title: "Ide Produk SaaS 2026",
+                content: "Beberapa ide untuk aplikasi B2B yang fokus pada produktivitas tim kecil tanpa framework yang berat. Menggunakan pendekatan micro-SAAS berbasis utilitas tinggi.",
+                category: "Ide",
+                date: "14 Jul 2026"
+            },
+            {
+                id: "note-2",
+                title: "Meeting Notes: Desain Sistem",
+                content: "Beberapa keputusan penting pasca diskusi dengan tim:\n- Hapus badge merah yang mengganggu pada dropdown.\n- Jangan tampilkan hitungan (2/4) di subtask agar layout lebih bersih.\n- Buat transisi panel board selembut mungkin.",
+                category: "Kerja",
+                date: "Hari ini"
+            },
+            {
+                id: "note-3",
+                title: "Jurnal Harian",
+                content: "Hari yang sangat produktif. Berhasil merapikan kode aplikasi Catatan dengan single-file format yang bersih dan terstruktur rapi menggunakan standard Tailwind.",
+                category: "Jurnal",
+                date: "Kemarin"
+            },
+            {
+                id: "note-4",
+                title: "Buku Resep Sehat",
+                content: "1. Oatmeal pisang di pagi hari.\n2. Salad ayam panggang rendah lemak di siang hari.\n3. Batasi asupan gula maksimal 25 gram per hari.",
+                category: "Personal",
+                date: "10 Jul 2026"
             }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Muat catatan dari LocalStorage jika ada, jika tidak pakai default
+            const savedNotes = localStorage.getItem('personal_os_notes');
+            if (savedNotes) {
+                try {
+                    notes = JSON.parse(savedNotes);
+                } catch (e) {
+                    notes = [...defaultNotes];
+                }
+            } else {
+                notes = [...defaultNotes];
+                saveNotesToStorage();
+            }
+
+            // Render Kategori & List Catatan pertama kali
+            renderCategoryPills();
+            renderNotesList();
+
+            // Pilih catatan pertama secara default pada layar besar (MD ke atas)
+            if (notes.length > 0 && window.innerWidth >= 768) {
+                selectNote(notes[0].id);
+            }
+        });
+
+        // Simpan data ke localStorage
+        function saveNotesToStorage() {
+            localStorage.setItem('personal_os_notes', JSON.stringify(notes));
+        }
+
+        const categories = ['Semua', 'Ide', 'Jurnal', 'Kerja', 'Personal'];
+
+        function renderCategoryPills() {
+            const container = document.getElementById('category-pills-container');
+            if (!container) return;
+
+            container.innerHTML = categories.map(cat => {
+                const isActive = activeCategory === cat;
+                const activeClass = isActive
+                    ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900'
+                    : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700';
+
+                return `
+          <span onclick="setFilterCategory('${cat}')" class="px-3 py-1 text-[11px] sm:text-xs font-semibold rounded-full cursor-pointer whitespace-nowrap transition-colors duration-150 ${activeClass}">
+            ${cat}
+          </span>
+        `;
+            }).join('');
+        }
+
+        function setFilterCategory(cat) {
+            activeCategory = cat;
+            renderCategoryPills();
+            renderNotesList();
+        }
+
+        function renderNotesList() {
+            const container = document.getElementById('notes-cards-list');
+            if (!container) return;
+
+            // Filter berdasarkan pencarian dan kategori
+            const filteredNotes = notes.filter(note => {
+                const matchesCategory = activeCategory === 'Semua' || note.category === activeCategory;
+                const query = searchQuery.toLowerCase();
+                const matchesSearch = note.title.toLowerCase().includes(query) || note.content.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filteredNotes.length === 0) {
+                container.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-12 px-4 text-center">
+            <svg class="w-8 h-8 text-zinc-300 dark:text-zinc-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <p class="text-xs font-medium text-zinc-500">Tidak ada catatan ditemukan</p>
+          </div>
+        `;
+                return;
+            }
+
+            container.innerHTML = filteredNotes.map(note => {
+                const isSelected = note.id === selectedNoteId;
+
+                // Penyesuaian kelas aktif premium (card terseleksi)
+                const bgClass = isSelected
+                    ? 'bg-zinc-900 text-white border-transparent dark:bg-zinc-800'
+                    : 'bg-surface border-border hover:border-zinc-300 dark:hover:border-zinc-700 text-primary';
+
+                const descClass = isSelected
+                    ? 'text-zinc-300'
+                    : 'text-zinc-500 dark:text-zinc-400';
+
+                const tagBadgeClass = isSelected
+                    ? 'bg-zinc-800 text-zinc-200 border-transparent'
+                    : 'bg-zinc-100 text-zinc-600 border-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-700';
+
+                return `
+          <div onclick="selectNote('${note.id}')" class="p-4 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-sm ${bgClass}">
+            <h3 class="text-xs sm:text-sm font-semibold mb-1 line-clamp-1">${note.title || 'Catatan Tanpa Judul'}</h3>
+            <p class="text-[11px] sm:text-xs mb-3 line-clamp-2 leading-relaxed ${descClass}">${note.content || 'Mulai menulis...'}</p>
+            <div class="flex items-center justify-between mt-auto">
+              <span class="text-[9px] font-medium text-zinc-400">${note.date}</span>
+              <span class="inline-flex items-center rounded px-1.5 py-0.5 text-[9px] font-bold border ${tagBadgeClass}">${note.category || 'Ide'}</span>
+            </div>
+          </div>
+        `;
+            }).join('');
+        }
+
+        function selectNote(noteId) {
+            selectedNoteId = noteId;
+            const note = notes.find(n => n.id === noteId);
+            if (!note) return;
+
+            // Update isi input editor
+            const titleInput = document.getElementById('editor-title');
+            const contentInput = document.getElementById('editor-content');
+            const dateElement = document.getElementById('editor-date');
+            const folderNameElement = document.getElementById('editor-folder-name');
+
+            if (titleInput) {
+                titleInput.value = note.title;
+                autoExpandTextarea(titleInput);
+            }
+            if (contentInput) {
+                contentInput.value = note.content;
+            }
+            if (dateElement) {
+                dateElement.innerText = `Terakhir diubah: ${note.date}`;
+            }
+            if (folderNameElement) {
+                folderNameElement.innerText = note.category || 'Pilih Tag';
+            }
+
+            // Tampilkan editor di mobile view
+            const editorPanel = document.getElementById('notes-editor-panel');
+            if (editorPanel) {
+                editorPanel.classList.remove('hidden');
+                setTimeout(() => {
+                    editorPanel.classList.remove('translate-y-full');
+                }, 10);
+            }
+
+            // Gambar ulang kartu list untuk memperbarui status 'active'
+            renderNotesList();
+        }
+
+        function createNewNote() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            const newNote = {
+                id: 'note-' + Date.now(),
+                title: '',
+                content: '',
+                category: 'Ide',
+                date: `${dateString}, ${timeString}`
+            };
+
+            // Tambahkan ke awal antrean catatan
+            notes.unshift(newNote);
+            saveNotesToStorage();
+
+            // Pilih & buka langsung catatan baru tersebut
+            selectNote(newNote.id);
+
+            // Berikan fokus ke input judul langsung
+            setTimeout(() => {
+                const titleInput = document.getElementById('editor-title');
+                if (titleInput) titleInput.focus();
+            }, 350);
+
+            showSuccessToast('Catatan baru berhasil dibuat!');
+        }
+
+        function handleNoteInput() {
+            if (!selectedNoteId) return;
+
+            const note = notes.find(n => n.id === selectedNoteId);
+            if (!note) return;
+
+            const titleInput = document.getElementById('editor-title');
+            const contentInput = document.getElementById('editor-content');
+            const statusElement = document.getElementById('editor-save-status');
+
+            if (statusElement) {
+                statusElement.innerText = 'Menyimpan...';
+            }
+
+            // Update state data lokal
+            note.title = titleInput.value;
+            note.content = contentInput.value;
+
+            const now = new Date();
+            const dateString = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            note.date = `${dateString}, ${timeString}`;
+
+            // Simpan berkala (Debounced / Instan untuk kemudahan)
+            saveNotesToStorage();
+
+            // Gambar ulang sidebar kiri tanpa mematikan fokus kursor
+            renderNotesList();
+
+            setTimeout(() => {
+                if (statusElement) {
+                    statusElement.innerText = 'Disimpan';
+                }
+            }, 600);
+        }
+
+        function setNoteCategory(categoryName) {
+            if (!selectedNoteId) return;
+
+            const note = notes.find(n => n.id === selectedNoteId);
+            if (note) {
+                note.category = categoryName;
+                document.getElementById('editor-folder-name').innerText = categoryName;
+                saveNotesToStorage();
+                renderNotesList();
+                showSuccessToast(`Kategori diubah menjadi "${categoryName}"`);
+            }
+
+            // Sembunyikan dropdown setelah memilih
+            toggleCategorySelectDropdown();
+        }
+
+        // Menghapus catatan aktif saat ini
+        function deleteActiveNote() {
+            if (!selectedNoteId) return;
+
+            // Cari index catatan tersebut
+            const index = notes.findIndex(n => n.id === selectedNoteId);
+            if (index === -1) return;
+
+            // Konfirmasi kustom/dialog halus dibanding menggunakan window.confirm
+            if (confirm('Apakah Anda yakin ingin menghapus catatan ini?')) {
+                notes.splice(index, 1);
+                saveNotesToStorage();
+                showSuccessToast('Catatan berhasil dihapus!');
+
+                // Bersihkan state & tutup editor di ponsel
+                selectedNoteId = null;
+                closeNoteEditor();
+                renderNotesList();
+
+                // Di desktop, pilih catatan berikutnya jika masih ada sisa
+                if (notes.length > 0 && window.innerWidth >= 768) {
+                    selectNote(notes[0].id);
+                } else {
+                    // Kosongkan form editor jika tidak ada catatan tersisa
+                    document.getElementById('editor-title').value = '';
+                    document.getElementById('editor-content').value = '';
+                    document.getElementById('editor-folder-name').innerText = 'Pilih Tag';
+                }
+            }
+        }
+
+        function handleSearch(val) {
+            searchQuery = val;
+            renderNotesList();
         }
 
         function closeNoteEditor() {
-            // Animate out
-            editorPanel.classList.add('translate-y-full');
-            
-            // Hide after animation completes
-            setTimeout(() => {
-                editorPanel.classList.add('hidden');
-            }, 300);
-        }
-    </script>
+            const editorPanel = document.getElementById('notes-editor-panel');
+            if (editorPanel) {
+                editorPanel.classList.add('translate-y-full');
+                setTimeout(() => {
+                    editorPanel.classList.add('hidden');
+                }, 300);
+            }
 
-    <script>
-        document.addEventListener('click', function(event) {
+            // Hilangkan fokus seleksi pada versi hp setelah ditutup
+            if (window.innerWidth < 768) {
+                selectedNoteId = null;
+                renderNotesList();
+            }
+        }
+
+        function autoExpandTextarea(element) {
+            element.style.height = 'auto';
+            element.style.height = element.scrollHeight + 'px';
+        }
+
+        function toggleProfileDropdown(event) {
+            event.stopPropagation();
             const dropdown = document.getElementById('profile-dropdown');
-            const container = document.getElementById('profile-menu-container');
-            if (dropdown && container && !container.contains(event.target)) {
-                if (!dropdown.classList.contains('opacity-0')) {
-                    dropdown.classList.add('opacity-0', 'invisible', 'scale-95');
-                    dropdown.classList.remove('scale-100');
-                }
+            if (!dropdown) return;
+
+            dropdown.classList.toggle('opacity-0');
+            dropdown.classList.toggle('invisible');
+            dropdown.classList.toggle('scale-95');
+            dropdown.classList.toggle('scale-100');
+        }
+
+        function toggleCategorySelectDropdown(event) {
+            if (event) event.stopPropagation();
+            const dropdown = document.getElementById('category-selector-dropdown');
+            if (!dropdown) return;
+
+            dropdown.classList.toggle('opacity-0');
+            dropdown.classList.toggle('invisible');
+        }
+
+        function showSuccessToast(message) {
+            createToast(message, 'success');
+        }
+
+        function showInfoToast(message) {
+            createToast(message, 'info');
+        }
+
+        function createToast(message, type) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = 'flex items-center p-3.5 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 rounded-xl shadow-xl border border-zinc-800 dark:border-zinc-200 text-xs font-semibold space-x-2 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto';
+
+            let icon = '';
+            if (type === 'success') {
+                icon = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            } else {
+                icon = `<svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            }
+
+            toast.innerHTML = `
+        ${icon}
+        <span>${message}</span>
+      `;
+
+            container.appendChild(toast);
+
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Simulasi logout halus
+        function logoutSimulation() {
+            showInfoToast('Anda berhasil keluar dari sistem Personal OS.');
+
+            // Tutup dropdown setelah ditekan
+            const dropdown = document.getElementById('profile-dropdown');
+            if (dropdown) {
+                dropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                dropdown.classList.remove('scale-100');
+            }
+        }
+
+        document.addEventListener('click', function (event) {
+            // Tutup Dropdown Profil
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const profileContainer = document.getElementById('profile-menu-container');
+            if (profileDropdown && profileContainer && !profileContainer.contains(event.target)) {
+                profileDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                profileDropdown.classList.remove('scale-100');
+            }
+
+            // Tutup Dropdown Pilihan Kategori di editor
+            const catDropdown = document.getElementById('category-selector-dropdown');
+            if (catDropdown && !event.target.closest('#category-selector-dropdown') && !event.target.closest('button[onclick="toggleCategorySelectDropdown(event)"]')) {
+                catDropdown.classList.add('opacity-0', 'invisible');
             }
         });
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                showSuccessToast('Mode Terang diaktifkan');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                showSuccessToast('Mode Gelap diaktifkan');
+            }
+        }
     </script>
 </body>
 
