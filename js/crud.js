@@ -1,5 +1,39 @@
 // crud.js - Handles LocalStorage Persistence for UI prototypes
 
+// Global PWA Setup
+window.deferredPrompt = null;
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    window.deferredPrompt = e;
+    
+    // Un-hide install buttons if they exist
+    const installBtns = document.querySelectorAll('#install-pwa-btn');
+    installBtns.forEach(btn => btn.classList.remove('hidden'));
+    
+    if (!localStorage.getItem('pwaPromptShown')) {
+        setTimeout(() => {
+            if (typeof window.showConfirmModal === 'function') {
+                window.showConfirmModal('Ingin install aplikasi Personal OS ini di perangkat Anda?', () => {
+                    if (window.deferredPrompt) {
+                        window.deferredPrompt.prompt();
+                        window.deferredPrompt.userChoice.then(() => { window.deferredPrompt = null; });
+                    }
+                });
+            } else if(confirm('Ingin install aplikasi Personal OS ini di perangkat Anda?')) {
+                if (window.deferredPrompt) {
+                    window.deferredPrompt.prompt();
+                    window.deferredPrompt.userChoice.then(() => { window.deferredPrompt = null; });
+                }
+            }
+            localStorage.setItem('pwaPromptShown', 'true');
+        }, 3000);
+    }
+});
+
 function showNotification(msg) {
     if (typeof window.showToast === 'function') {
         window.showToast(msg, 'success');
@@ -98,24 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // 1. Setup PWA
-    window.deferredPrompt = null;
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      window.deferredPrompt = e;
-      const installBtns = document.querySelectorAll('#install-pwa-btn');
-      installBtns.forEach(btn => btn.classList.remove('hidden'));
-      
-      if (!localStorage.getItem('pwaPromptShown')) {
-        setTimeout(() => {
-            if (typeof window.showConfirmModal === 'function') {
-                window.showConfirmModal('Ingin install aplikasi Personal OS ini di perangkat Anda?', () => {
-                    installPWA();
-                });
+
+
             } else if(confirm('Ingin install aplikasi Personal OS ini di perangkat Anda?')) {
                 installPWA();
             }
