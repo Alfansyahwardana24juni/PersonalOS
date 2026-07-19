@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal OS - Pengaturan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'var(--color-primary)', background: 'var(--color-background)',
+                        surface: 'var(--color-surface)', border: 'var(--color-border)',
+                        success: 'var(--color-success)', danger: 'var(--color-danger)',
+                        warning: 'var(--color-warning)', brand: 'var(--color-brand)'
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css?v=5">
+    <script>if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); }</script>
+    <link rel="manifest" href="manifest.json">
+</head>
+<body class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-primary selection:text-white">
+
+<!-- Desktop Sidebar -->
+<aside class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]">
+    <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]">
+        <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain mr-3 dark:hidden">
+<img src="logohitam.png" alt="Logo" class="w-12 h-12 object-contain mr-3 hidden dark:block">
+        <h1 class="font-bold text-sm tracking-wide">Personal OS</h1>
+    </div>
+    <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar">
+        <div class="text-xs font-semibold text-gray-400 mb-4 px-3 uppercase tracking-wider">Ruang Kerja</div>
+        <nav class="space-y-1">
+            <a href="index.html" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors dark:hover:bg-[#27272a] dark:text-gray-400">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> Dasbor
+            </a>
+            <a href="tasks.html" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors dark:hover:bg-[#27272a] dark:text-gray-400">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Tugas
+            </a>
+            <a href="calendar.html" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors dark:hover:bg-[#27272a] dark:text-gray-400">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> Kalender
+            </a>
+            <a href="notes.html" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors dark:hover:bg-[#27272a] dark:text-gray-400">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Catatan
+            </a>
+            <a href="finance.html" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors dark:hover:bg-[#27272a] dark:text-gray-400">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Keuangan
+            </a>
+            <div class="my-4 border-t border-border dark:border-[#27272a]"></div>
+            <a href="settings.html" class="flex items-center px-3 py-2 bg-gray-100 rounded-md text-sm font-semibold text-primary transition-colors dark:bg-[#27272a]">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Pengaturan
+            </a>
+            <a href="#" onclick="triggerInstallPWA(event)" class="flex items-center px-3 py-2 bg-brand/10 text-brand hover:bg-brand/20 rounded-md text-sm font-semibold transition-colors group dark:bg-brand/20 dark:text-brand dark:hover:bg-brand/30">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Install Aplikasi
+            </a>
+        </nav>
+    </div>
+</aside>
+
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+    <!-- Topbar -->
+    <header class="h-16 bg-surface border-b border-border flex items-center justify-between px-6 shrink-0 z-10 dark:bg-surface dark:border-[#27272a]">
+        <h1 class="text-xl font-bold text-primary">Pengaturan</h1>
+        <div class="flex items-center gap-3">
+            <button onclick="toggleDarkMode()" class="p-2 text-gray-400 hover:text-primary transition-colors" title="Ganti Tema">
+                <svg class="h-5 w-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg class="h-5 w-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+            <a href="profile.html" class="h-8 w-8 rounded-full border border-border overflow-hidden cursor-pointer hover:ring-2 hover:ring-gray-100 transition-all dark:border-[#27272a]">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC" alt="Avatar" class="h-full w-full object-cover" id="header-avatar">
+            </a>
+        </div>
+    </header>
+
+    <!-- Settings Content -->
+    <div class="flex-1 overflow-y-auto custom-scrollbar p-6 bg-gray-50/50 dark:bg-[#09090b]/50">
+        <div class="max-w-2xl mx-auto space-y-6">
+
+            <!-- Section: Tampilan -->
+            <div class="bg-white rounded-2xl border border-border shadow-sm dark:bg-surface dark:border-[#27272a]">
+                <div class="px-6 py-4 border-b border-border dark:border-[#27272a]">
+                    <h2 class="text-sm font-bold text-primary">Tampilan</h2>
+                    <p class="text-xs text-gray-500 mt-0.5 dark:text-gray-400">Sesuaikan tampilan aplikasi</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-primary">Mode Tampilan</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Pilih tema terang, gelap, atau ikuti sistem</p>
+                        </div>
+                        <div class="flex bg-gray-100 p-1 rounded-lg dark:bg-[#18181b] gap-1">
+                            <button id="theme-light" onclick="setTheme('light')" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-gray-500 dark:text-gray-400">
+                                ☀️ Terang
+                            </button>
+                            <button id="theme-dark" onclick="setTheme('dark')" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-gray-500 dark:text-gray-400">
+                                🌙 Gelap
+                            </button>
+                            <button id="theme-system" onclick="setTheme('system')" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-gray-500 dark:text-gray-400">
+                                💻 Sistem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Data -->
+            <div class="bg-white rounded-2xl border border-border shadow-sm dark:bg-surface dark:border-[#27272a]">
+                <div class="px-6 py-4 border-b border-border dark:border-[#27272a]">
+                    <h2 class="text-sm font-bold text-primary">Data & Backup</h2>
+                    <p class="text-xs text-gray-500 mt-0.5 dark:text-gray-400">Export, import, dan kelola data aplikasi</p>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl dark:bg-[#09090b]">
+                        <div>
+                            <p class="text-sm font-semibold text-primary">Export Data</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Unduh semua data sebagai file JSON</p>
+                        </div>
+                        <button onclick="exportAllData()" class="px-4 py-2 text-xs font-semibold bg-primary text-white rounded-lg hover:bg-gray-800 transition-colors dark:bg-[#FAFAFA] dark:text-[#09090b]">
+                            Export
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl dark:bg-[#09090b]">
+                        <div>
+                            <p class="text-sm font-semibold text-primary">Import Data</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Pulihkan data dari file backup JSON</p>
+                        </div>
+                        <button onclick="document.getElementById('import-file-input').click()" class="px-4 py-2 text-xs font-semibold bg-white text-primary border border-border rounded-lg hover:bg-gray-50 transition-colors dark:bg-surface dark:border-[#3f3f46]">
+                            Import
+                        </button>
+                        <input type="file" id="import-file-input" accept=".json" class="hidden" onchange="importAllData(this)">
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-100 dark:bg-red-500/10 dark:border-red-500/20">
+                        <div>
+                            <p class="text-sm font-semibold text-danger">Reset Semua Data</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Hapus semua data aplikasi. Tindakan tidak dapat dibatalkan.</p>
+                        </div>
+                        <button onclick="resetAllData()" class="px-4 py-2 text-xs font-semibold bg-danger text-white rounded-lg hover:bg-red-700 transition-colors">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: PWA -->
+            <div class="bg-white rounded-2xl border border-border shadow-sm dark:bg-surface dark:border-[#27272a]">
+                <div class="px-6 py-4 border-b border-border dark:border-[#27272a]">
+                    <h2 class="text-sm font-bold text-primary">Instalasi Aplikasi (PWA)</h2>
+                    <p class="text-xs text-gray-500 mt-0.5 dark:text-gray-400">Install Personal OS sebagai aplikasi di perangkat Anda</p>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-primary">Install Personal OS</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Buka via <code class="bg-gray-100 px-1 rounded dark:bg-[#18181b]">http://localhost:8080</code> di Chrome lalu klik install</p>
+                        </div>
+                        <button onclick="triggerInstallPWA(event)" id="install-pwa-btn" class="px-4 py-2 text-xs font-semibold bg-brand/10 text-brand border border-brand/20 rounded-lg hover:bg-brand/20 transition-colors">
+                            Install
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Shortcuts -->
+            <div class="bg-white rounded-2xl border border-border shadow-sm dark:bg-surface dark:border-[#27272a]">
+                <div class="px-6 py-4 border-b border-border dark:border-[#27272a]">
+                    <h2 class="text-sm font-bold text-primary">Keyboard Shortcut</h2>
+                    <p class="text-xs text-gray-500 mt-0.5 dark:text-gray-400">Navigasi cepat menggunakan keyboard</p>
+                </div>
+                <div class="p-6">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-xs text-gray-400 uppercase tracking-wider border-b border-border dark:border-[#27272a]">
+                                <th class="text-left pb-3 font-semibold">Shortcut</th>
+                                <th class="text-left pb-3 font-semibold">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border dark:divide-[#27272a]">
+                            <tr>
+                                <td class="py-3"><kbd class="px-2 py-1 text-xs font-semibold bg-gray-100 border border-gray-300 rounded dark:bg-[#18181b] dark:border-[#27272a]">Ctrl + K</kbd></td>
+                                <td class="py-3 text-gray-600 dark:text-gray-400">Buka Command Palette</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3"><kbd class="px-2 py-1 text-xs font-semibold bg-gray-100 border border-gray-300 rounded dark:bg-[#18181b] dark:border-[#27272a]">Ctrl + N</kbd></td>
+                                <td class="py-3 text-gray-600 dark:text-gray-400">Quick Add (Tugas/Catatan/Transaksi)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3"><kbd class="px-2 py-1 text-xs font-semibold bg-gray-100 border border-gray-300 rounded dark:bg-[#18181b] dark:border-[#27272a]">Esc</kbd></td>
+                                <td class="py-3 text-gray-600 dark:text-gray-400">Tutup modal / panel</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3"><kbd class="px-2 py-1 text-xs font-semibold bg-gray-100 border border-gray-300 rounded dark:bg-[#18181b] dark:border-[#27272a]">↑ ↓</kbd></td>
+                                <td class="py-3 text-gray-600 dark:text-gray-400">Navigasi di Command Palette</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3"><kbd class="px-2 py-1 text-xs font-semibold bg-gray-100 border border-gray-300 rounded dark:bg-[#18181b] dark:border-[#27272a]">Enter</kbd></td>
+                                <td class="py-3 text-gray-600 dark:text-gray-400">Pilih item di Command Palette</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section: About -->
+            <div class="bg-white rounded-2xl border border-border shadow-sm dark:bg-surface dark:border-[#27272a]">
+                <div class="px-6 py-4 border-b border-border dark:border-[#27272a]">
+                    <h2 class="text-sm font-bold text-primary">Tentang Aplikasi</h2>
+                </div>
+                <div class="p-6 flex items-center gap-4">
+                    <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain">
+                    <div>
+                        <p class="text-sm font-bold text-primary">Personal OS</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Versi 1.0 — Second Brain untuk produktivitas pribadi</p>
+                        <p class="text-xs text-gray-400 mt-1 dark:text-gray-500">Notes • Tasks • Calendar • Finance • Dashboard</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="md:hidden absolute bottom-0 left-0 right-0 bg-surface border-t border-border flex justify-around items-center h-16 z-40 px-2 dark:bg-surface dark:border-[#27272a]">
+        <a href="index.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
+            <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            <span class="text-[10px] font-medium">Beranda</span>
+        </a>
+        <a href="tasks.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
+            <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span class="text-[10px] font-medium">Tugas</span>
+        </a>
+        <a href="calendar.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
+            <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <span class="text-[10px] font-medium">Kalender</span>
+        </a>
+        <a href="notes.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
+            <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+            <span class="text-[10px] font-medium">Catatan</span>
+        </a>
+        <a href="finance.html" class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
+            <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span class="text-[10px] font-medium">Keuangan</span>
+        </a>
+    </nav>
+</main>
+
+<!-- Reset Confirm Modal -->
+<div id="reset-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onclick="document.getElementById('reset-modal').classList.add('hidden')"></div>
+    <div class="relative bg-surface rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden border border-border dark:bg-surface dark:border-[#27272a] p-6 text-center">
+        <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <h3 class="text-lg font-bold text-primary mb-2">Reset Semua Data?</h3>
+        <p class="text-sm text-gray-500 mb-6 dark:text-gray-400">Seluruh data (tugas, catatan, keuangan, kalender) akan dihapus permanen. Pastikan sudah backup terlebih dahulu.</p>
+        <div class="flex gap-3">
+            <button onclick="document.getElementById('reset-modal').classList.add('hidden')" class="flex-1 px-4 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg dark:text-gray-400 dark:bg-surface dark:border-[#3f3f46]">Batal</button>
+            <button onclick="confirmReset()" class="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-danger rounded-lg hover:bg-red-700">Hapus Semua</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/crud.js"></script>
+<script>
+    // Settings Logic
+    function setTheme(theme) {
+        const btns = ['theme-light', 'theme-dark', 'theme-system'];
+        const activeClass = 'bg-white dark:bg-surface shadow-sm text-primary font-semibold';
+        const inactiveClass = 'text-gray-500 dark:text-gray-400';
+        btns.forEach(id => {
+            const el = document.getElementById(id);
+            el.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${inactiveClass}`;
+        });
+        document.getElementById('theme-' + theme).className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${activeClass}`;
+
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'system');
+        }
+    }
+
+    function exportAllData() {
+        const keys = ['finance_transactions','finance_accounts','finance_goals','calendar_events','user_notes','user_profile','state_board_full','activity_log','inbox_items'];
+        const data = {};
+        keys.forEach(k => {
+            const val = localStorage.getItem(k);
+            if (val) data[k] = JSON.parse(val);
+        });
+        data._exported_at = new Date().toISOString();
+        data._version = '1.0';
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `personalos_backup_${new Date().toISOString().slice(0,10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        if (window.showToast) window.showToast('Data berhasil diexport!', 'success');
+    }
+
+    function importAllData(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = JSON.parse(e.target.result);
+                const keys = ['finance_transactions','finance_accounts','finance_goals','calendar_events','user_notes','user_profile','state_board_full','activity_log','inbox_items'];
+                keys.forEach(k => {
+                    if (data[k] !== undefined) localStorage.setItem(k, JSON.stringify(data[k]));
+                });
+                if (window.showToast) window.showToast('Data berhasil diimport! Halaman akan dimuat ulang...', 'success');
+                setTimeout(() => location.reload(), 1500);
+            } catch(err) {
+                if (window.showToast) window.showToast('File tidak valid. Pastikan file JSON dari Personal OS.', 'danger');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function resetAllData() {
+        document.getElementById('reset-modal').classList.remove('hidden');
+    }
+
+    function confirmReset() {
+        const keys = ['finance_transactions','finance_accounts','finance_goals','calendar_events','user_notes','user_profile','state_board_full','activity_log','inbox_items','temp_photoUrl'];
+        keys.forEach(k => localStorage.removeItem(k));
+        document.getElementById('reset-modal').classList.add('hidden');
+        if (window.showToast) window.showToast('Semua data telah dihapus!', 'success');
+        setTimeout(() => location.href = 'index.html', 1200);
+    }
+
+    function triggerInstallPWA(e) {
+        if (e) e.preventDefault();
+        if (window.deferredPrompt) {
+            window.deferredPrompt.prompt();
+            window.deferredPrompt.userChoice.then(() => { window.deferredPrompt = null; });
+        } else {
+            if (window.showToast) window.showToast('Buka melalui http://localhost:8080 di Chrome untuk menginstall', 'warning');
+        }
+    }
+
+    function toggleDarkMode() {
+        const logo = document.getElementById('app-logo');
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            if (logo) logo.src = 'logoputih.png';
+            setTheme('light');
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            if (logo) logo.src = 'logohitam.png';
+            setTheme('dark');
+        }
+    }
+
+    // Init: highlight current theme button
+    document.addEventListener('DOMContentLoaded', () => {
+        const t = localStorage.getItem('theme') || 'light';
+        const activeClass = 'bg-white dark:bg-surface shadow-sm text-primary font-semibold';
+        const inactiveClass = 'text-gray-500 dark:text-gray-400';
+        ['light','dark','system'].forEach(id => {
+            const el = document.getElementById('theme-' + id);
+            if (el) el.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${id === t ? activeClass : inactiveClass}`;
+        });
+
+        // Load profile photo
+        const profile = JSON.parse(localStorage.getItem('user_profile') || '{}');
+        if (profile.photoUrl) {
+            const avatarEl = document.getElementById('header-avatar');
+            if (avatarEl) avatarEl.src = profile.photoUrl;
+        }
+    });
+</script>
+<script src="js/command_palette.js"></script>
+</body>
+</html>

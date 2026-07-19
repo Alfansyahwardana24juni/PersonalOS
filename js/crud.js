@@ -99,14 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 1. Setup PWA
-    let deferredPrompt;
+    window.deferredPrompt = null;
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
-      deferredPrompt = e;
+      window.deferredPrompt = e;
       const installBtns = document.querySelectorAll('#install-pwa-btn');
       installBtns.forEach(btn => btn.classList.remove('hidden'));
       
@@ -125,10 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function installPWA() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          deferredPrompt = null;
+      if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then((choiceResult) => {
+          window.deferredPrompt = null;
           const installBtns = document.querySelectorAll('#install-pwa-btn');
           installBtns.forEach(btn => btn.classList.add('hidden'));
         });
@@ -212,4 +212,28 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(saveState, 50);
         }
     });
+
+    // 5. Init logo based on theme
+    const logo = document.getElementById('app-logo');
+    if (logo) {
+        logo.src = document.documentElement.classList.contains('dark') ? 'logohitam.png' : 'logoputih.png';
+    }
 });
+
+// Global toggleDarkMode - shared across all pages
+window.toggleDarkMode = function() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const logo = document.getElementById('app-logo');
+    if (isDark) {
+        // Switching to Light Mode
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        if (logo) logo.src = 'logoputih.png';
+    } else {
+        // Switching to Dark Mode
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        if (logo) logo.src = 'logohitam.png';
+    }
+};
+

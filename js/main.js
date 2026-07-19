@@ -1,21 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Personal OS Dashboard initialized.');
     
-    // Global Keyboard Shortcuts
+    // Global Keyboard Shortcuts — handled by command_palette.js if loaded
+    // These are fallbacks in case command_palette.js is not available
     document.addEventListener('keydown', (e) => {
-        // Ctrl + K for Search
+        // Ctrl + K for Command Palette
         if (e.ctrlKey && e.key.toLowerCase() === 'k') {
             e.preventDefault();
-            const searchInput = document.querySelector('input[placeholder*="Search"]');
-            if (searchInput) {
-                searchInput.focus();
+            if (typeof openCommandPalette === 'function') {
+                openCommandPalette();
             }
         }
         
         // Ctrl + N for Quick Add
         if (e.ctrlKey && e.key.toLowerCase() === 'n') {
             e.preventDefault();
-            triggerQuickAdd();
+            if (typeof openQuickAdd === 'function') {
+                openQuickAdd('task');
+            }
         }
     });
 
@@ -24,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (quickAddBtn) {
         quickAddBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            triggerQuickAdd();
+            if (typeof openQuickAdd === 'function') {
+                openQuickAdd('task');
+            }
         });
     }
 

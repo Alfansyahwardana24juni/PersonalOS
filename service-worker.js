@@ -1,17 +1,26 @@
-const CACHE_NAME = 'personalos-cache-v2'; // Updated version!
+const CACHE_NAME = 'personalos-cache-v11';
 const urlsToCache = [
   './',
   './index.html',
   './tasks.html',
+  './calendar.html',
   './finance.html',
   './notes.html',
   './profile.html',
-  './calendar.html',
+  './settings.html',
   './inbox.html',
   './css/style.css',
   './js/main.js',
   './js/crud.js',
-  './js/tasks_app.js'
+  './js/tasks_app.js',
+  './js/finance_app.js',
+  './js/calendar_app.js',
+  './js/command_palette.js',
+  './js/dashboard_app.js',
+  './logoputih.png',
+  './logohitam.png',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', event => {

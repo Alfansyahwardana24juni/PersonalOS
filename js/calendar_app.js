@@ -62,10 +62,13 @@ function generateId() {
 document.addEventListener('DOMContentLoaded', () => {
     initCalendar();
     
-    // Bind controls
-    document.getElementById('btn-prev-month').addEventListener('click', prevMonth);
-    document.getElementById('btn-next-month').addEventListener('click', nextMonth);
-    document.getElementById('btn-today').addEventListener('click', goToToday);
+    // Bind controls (fallback for buttons that use getElementById rather than inline onclick)
+    const btnPrev = document.getElementById('btn-prev-month');
+    const btnNext = document.getElementById('btn-next-month');
+    const btnToday = document.getElementById('btn-today');
+    if (btnPrev) btnPrev.addEventListener('click', prevMonth);
+    if (btnNext) btnNext.addEventListener('click', nextMonth);
+    if (btnToday) btnToday.addEventListener('click', goToToday);
 });
 
 function initCalendar() {

@@ -22,8 +22,9 @@
     <!-- Desktop Sidebar -->
     <aside
         class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]">
-        <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]"> <img src="logoputih.png"
-                alt="Logo" class="w-12 h-12 object-contain mr-3" id="app-logo">
+        <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]">
+            <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain mr-3 dark:hidden">
+            <img src="logohitam.png" alt="Logo" class="w-12 h-12 object-contain mr-3 hidden dark:block">
             <h1 class="font-bold text-sm tracking-wide">Personal OS</h1>
         </div> <!-- Navigation Links -->
         <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar">
@@ -67,6 +68,9 @@
                     </svg>
                     Install Aplikasi
                 </a>
+            <a href="settings.html" id="nav-settings" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400 mt-1">
+                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Pengaturan
+            </a>
             </nav>
         </div>
     </aside> <!-- Main Content Area -->
@@ -180,8 +184,8 @@
                                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg> </div>
                         </div>
-                        <div class="flex items-baseline gap-2"> <span class="text-2xl font-semibold">5</span> <span
-                                class="text-sm text-gray-400">/ 8</span> </div>
+                        <div class="flex items-baseline gap-2"> <span class="text-2xl font-semibold" id="stat-tasks">0</span> <span
+                                class="text-sm text-gray-400" id="stat-tasks-total">/ 0</span> </div>
                     </div>
                     <div
                         class="bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow cursor-pointer group dark:bg-surface dark:border-[#27272a]">
@@ -207,7 +211,7 @@
                                         d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
                                 </svg> </div>
                         </div>
-                        <div class="text-2xl font-semibold">Rp150.000</div>
+                        <div class="text-2xl font-semibold" id="stat-expense">Rp0</div>
                     </div>
                     <div
                         class="bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow cursor-pointer group dark:bg-surface dark:border-[#27272a]">
@@ -220,7 +224,7 @@
                                         d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                                 </svg> </div>
                         </div>
-                        <div class="text-2xl font-semibold">Rp15.500.000</div>
+                        <div class="text-2xl font-semibold" id="stat-income">Rp0</div>
                     </div>
                 </div> <!-- Main Content Layout -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8"> <!-- Left Column (Wider) -->
@@ -286,7 +290,7 @@
                                     class="text-xs font-medium text-gray-500 hover:text-primary transition-colors dark:text-gray-400">Lihat
                                     semua</a>
                             </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"> <!-- Note Card --> <a href="notes.html"
+                            <div id="dashboard-notes" class="grid grid-cols-1 sm:grid-cols-2 gap-4"> <!-- Note Card --> <a href="notes.html"
                                     class="block bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md hover:border-gray-300 transition-all group dark:bg-surface dark:border-[#27272a]">
                                     <h4 class="font-semibold text-sm mb-2 group-hover:text-primary transition-colors">
                                         Catatan Rapat: Rilis Alpha</h4>
@@ -313,7 +317,7 @@
                             <h3 class="font-semibold text-base mb-4">Aktivitas</h3>
                             <div
                                 class="bg-surface rounded-xl border border-border p-5 shadow-sm dark:bg-surface dark:border-[#27272a]">
-                                <div class="relative pl-5 border-l-2 border-gray-100 space-y-6 dark:border-[#27272a]">
+                                <div id="dashboard-activity" class="relative pl-5 border-l-2 border-gray-100 space-y-6 dark:border-[#27272a]">
                                     <!-- Activity Item -->
                                     <div class="relative">
                                         <div
@@ -388,29 +392,8 @@
     </main> <!-- Custom JS -->
     <script src="js/main.js"></script>
     <script src="js/crud.js"></script>
-    <script> function toggleDarkMode() {
-            const logo = document.getElementById('app-logo');
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                if (logo) logo.src = 'logoputih.png';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                if (logo) logo.src = 'logohitam.png';
-            }
-        }
-        // Auto-check the toggle if dark mode is active
-        document.addEventListener('DOMContentLoaded', () => {
-            const darkToggle = document.getElementById('dark-mode-toggle');
-            const logo = document.getElementById('app-logo');
-            if (document.documentElement.classList.contains('dark')) {
-                if (darkToggle) darkToggle.checked = true;
-                if (logo) logo.src = 'logohitam.png';
-            } else {
-                if (logo) logo.src = 'logoputih.png';
-            }
-        }); </script>
+    <script src="js/dashboard_app.js"></script>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -485,28 +468,32 @@
     </script>
 
     <script>
-        function triggerInstallPWA(e) {
-            if (e) e.preventDefault();
-            if (typeof window.showConfirmModal === 'function') {
-                window.showConfirmModal('Ingin menginstal aplikasi Personal OS di perangkat Anda?', () => {
-                    if (typeof window.showToast === 'function') {
-                        window.showToast('Aplikasi sedang diinstal... (Simulasi PWA)', 'success');
-                    } else {
-                        alert('Aplikasi sedang diinstal... (Simulasi PWA)');
-                    }
-                    // Logic asli PWA jika berjalan di environment HTTPS / localhost yang valid:
-                    if (typeof window.deferredPrompt !== 'undefined' && window.deferredPrompt) {
-                        window.deferredPrompt.prompt();
-                        window.deferredPrompt.userChoice.then((choiceResult) => {
-                            window.deferredPrompt = null;
-                        });
-                    }
-                });
-            } else if (confirm('Ingin menginstal aplikasi Personal OS di perangkat Anda?')) {
-                alert('Aplikasi sedang diinstal... (Simulasi PWA)');
-            }
+        
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').then((reg) => {
+        console.log('ServiceWorker registration successful with scope: ', reg.scope);
+    }).catch((err) => {
+        console.log('ServiceWorker registration failed: ', err);
+    });
+}
+function triggerInstallPWA(e) {
+    if(e) e.preventDefault();
+    if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then((choiceResult) => {
+            window.deferredPrompt = null;
+        });
+    } else {
+        if (typeof window.showToast === 'function') {
+            window.showToast('Buka aplikasi ini melalui Google Chrome (atau browser Chromium) untuk menginstallnya sebagai PWA', 'warning');
+        } else {
+            alert('Buka aplikasi ini melalui Google Chrome (atau browser Chromium) untuk menginstallnya sebagai PWA');
         }
+    }
+}
     </script>
+<script src="js/command_palette.js"></script>
+<script src="js/command_palette.js"></script>
 </body>
 
 
