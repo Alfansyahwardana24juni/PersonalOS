@@ -19,6 +19,24 @@
 
 <body
     class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-primary selection:text-white">
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background dark:bg-surface transition-opacity duration-500">
+        <img src="logohitam.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 dark:hidden animate-pulse">
+        <img src="logoputih.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 hidden dark:block animate-pulse">
+        <h1 class="text-2xl font-bold mb-2">Personal OS</h1>
+        <div class="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if (splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.remove(), 500);
+                }
+            }, 1000); // Max 1-2 seconds as per PWA.MD
+        });
+    </script>
     <!-- Desktop Sidebar -->
     <aside
         class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]">

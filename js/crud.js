@@ -3,7 +3,27 @@
 // Global PWA Setup
 window.deferredPrompt = null;
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
+    navigator.serviceWorker.register('service-worker.js').then(registration => {
+        registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New version available
+                    window.showConfirmModal('Versi baru tersedia. Update Sekarang?', () => {
+                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                        window.location.reload();
+                    });
+                }
+            });
+        });
+    });
+
+    let refreshing;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+    });
 }
 
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -72,7 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 toast.classList.add('translate-x-full', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
+            
+            // Web Notification fallback if granted
+            if (Notification.permission === 'granted' && document.visibilityState !== 'visible') {
+                new Notification('Personal OS', {
+                    body: message,
+                    icon: 'icon-192.png'
+                });
+            }
         };
+        
+        // Request Notification permission
+        if ('Notification' in window && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+            Notification.requestPermission();
+        }
     }
 
     // Inject showConfirmModal globally
@@ -135,14 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-            } else if(confirm('Ingin install aplikasi Personal OS ini di perangkat Anda?')) {
-                installPWA();
-            }
-            localStorage.setItem('pwaPromptShown', 'true');
-        }, 2000);
-      }
-    });
-
     function installPWA() {
       if (window.deferredPrompt) {
         window.deferredPrompt.prompt();
@@ -182,12 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. Generic Save Logic
-    document.body.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON' && (e.target.innerText.includes('Simpan') || e.target.innerText.includes('Simpan Tugas') || e.target.innerText.includes('Simpan Target'))) {
-            setTimeout(() => {
+    // 3. Auto Save
+    document.body.addEventListener('input', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+            // Debounce saveState
+            clearTimeout(window.autoSaveTimeout);
+            window.autoSaveTimeout = setTimeout(() => {
                 saveState();
-            }, 100);
+                showNotification('Perubahan disimpan.');
+            }, 500); // Auto save after 500ms of typing
         }
     });
 
@@ -205,6 +233,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('state_' + id, el.innerHTML);
             }
         });
+        
+        // Save form inputs (for simple auto-save persistence)
+        document.querySelectorAll('input, textarea').forEach(input => {
+            if (input.id) {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    localStorage.setItem('state_input_' + input.id, input.checked);
+                } else {
+                    localStorage.setItem('state_input_' + input.id, input.value);
+                }
+            }
+        });
+
+        // Register background sync
+        if ('serviceWorker' in navigator && 'SyncManager' in window) {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.sync.register('sync-data').catch(err => {
+                    console.error('Sync registration failed:', err);
+                });
+            });
+        }
     }
 
     function loadState() {
@@ -214,6 +262,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const saved = localStorage.getItem('state_' + id);
                 if (saved) {
                     el.innerHTML = saved;
+                }
+            }
+        });
+        
+        // Load form inputs
+        document.querySelectorAll('input, textarea').forEach(input => {
+            if (input.id) {
+                const saved = localStorage.getItem('state_input_' + input.id);
+                if (saved !== null) {
+                    if (input.type === 'checkbox' || input.type === 'radio') {
+                        input.checked = (saved === 'true');
+                    } else {
+                        input.value = saved;
+                    }
                 }
             }
         });

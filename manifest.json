@@ -3,8 +3,9 @@
   "short_name": "PersonalOS",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#18181b",
+  "orientation": "portrait",
+  "background_color": "#F8FAFC",
+  "theme_color": "#111827",
   "icons": [
     {
       "src": "icon-192.png",
@@ -17,6 +18,29 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Open Dashboard",
+      "url": "/index.html",
+      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Notes",
+      "short_name": "Notes",
+      "description": "Open Notes",
+      "url": "/notes.html",
+      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Tasks",
+      "short_name": "Tasks",
+      "description": "Open Tasks",
+      "url": "/tasks.html",
+      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
     }
   ]
 }
