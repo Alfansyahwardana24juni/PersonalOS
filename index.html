@@ -21,8 +21,8 @@
     class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-primary selection:text-white">
     <!-- Splash Screen -->
     <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background dark:bg-surface transition-opacity duration-500">
-        <img src="logohitam.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 dark:hidden animate-pulse">
-        <img src="logoputih.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 hidden dark:block animate-pulse">
+        <img src="logoputih.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 dark:hidden animate-pulse">
+        <img src="logohitam.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 hidden dark:block animate-pulse">
         <h1 class="text-2xl font-bold mb-2">Personal OS</h1>
         <div class="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
     </div>
@@ -41,8 +41,8 @@
     <aside
         class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]">
         <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]">
-            <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain mr-3 dark:hidden">
-            <img src="logohitam.png" alt="Logo" class="w-12 h-12 object-contain mr-3 hidden dark:block">
+            <img src="logohitam.png" alt="Logo" class="w-12 h-12 object-contain mr-3 dark:hidden">
+            <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain mr-3 hidden dark:block">
             <h1 class="font-bold text-sm tracking-wide">Personal OS</h1>
         </div> <!-- Navigation Links -->
         <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar">
@@ -126,7 +126,7 @@
                 </a>
                 <div class="relative" id="profile-menu-container">
                     <div class="h-8 w-8 rounded-full border border-border overflow-hidden cursor-pointer hover:ring-2 hover:ring-gray-100 transition-all dark:border-[#27272a]"
-                        onclick="document.getElementById('profile-dropdown').classList.toggle('opacity-0'); document.getElementById('profile-dropdown').classList.toggle('invisible'); document.getElementById('profile-dropdown').classList.toggle('scale-95'); document.getElementById('profile-dropdown').classList.toggle('scale-100'); event.stopPropagation();">
+                        onclick="if(typeof window.toggleProfileMenu === 'function') { window.toggleProfileMenu(event); } else { document.getElementById('profile-dropdown').classList.toggle('opacity-0'); document.getElementById('profile-dropdown').classList.toggle('invisible'); document.getElementById('profile-dropdown').classList.toggle('scale-95'); document.getElementById('profile-dropdown').classList.toggle('scale-100'); event.stopPropagation(); }">
                         <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC"
                             alt="Avatar" class="h-full w-full object-cover"> </div> <!-- Dropdown -->
                     <div id="profile-dropdown"
@@ -408,50 +408,14 @@
                     </path>
                 </svg> <span class="text-[10px] font-medium">Keuangan</span> </a> </nav>
     </main> <!-- Custom JS -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=1784612033129"></script>
     <script src="js/crud.js"></script>
     <script src="js/dashboard_app.js"></script>
     
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Sync tasks from local storage
-            const taskContainer = document.getElementById('dashboard-tasks');
-            if (taskContainer) {
-                let allTasks = [];
-                // Extract titles from board-todo and board-inprogress
-                ['state_board-todo', 'state_board-inprogress'].forEach(key => {
-                    const state = localStorage.getItem(key);
-                    if (state) {
-                        // Parse HTML string to DOM
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(state, 'text/html');
-                        const titles = doc.querySelectorAll('h4');
-                        titles.forEach(t => allTasks.push(t.innerText));
-                    }
-                });
-
-                if (allTasks.length > 0) {
-                    let html = '';
-                    // Render up to 5 tasks
-                    allTasks.slice(0, 5).forEach(title => {
-                        html += `
-                <li class="p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer dark:hover:bg-[#27272a]">
-                    <div class="pt-0.5">
-                        <input type="checkbox" class="w-4 h-4 text-primary bg-white border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer transition-all dark:bg-surface dark:border-[#3f3f46]">
-                    </div>
-                    <div class="ml-3 flex-1">
-                        <p class="text-sm font-medium text-primary">${title}</p>
-                        <div class="flex items-center gap-3 mt-1.5">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">Personal OS</span>
-                            <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-0.5 text-[10px] font-medium text-gray-600 dark:bg-[#09090b] dark:text-gray-400">Sedang</span>
-                        </div>
-                    </div>
-                </li>`;
-                    });
-                    taskContainer.innerHTML = html;
-                }
-            }
+            // Dashboard stats and tasks are handled by dashboard_app.js
 
             // Date Filter Logic
             const dateFrom = document.getElementById('dash-date-from');

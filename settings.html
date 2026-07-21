@@ -33,8 +33,8 @@
 <!-- Desktop Sidebar -->
 <aside class="hidden md:flex flex-col w-64 bg-surface border-r border-border shrink-0 z-20 dark:bg-surface dark:border-[#27272a]">
     <div class="h-16 flex items-center px-6 border-b border-border dark:border-[#27272a]">
-        <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain mr-3 dark:hidden">
-<img src="logohitam.png" alt="Logo" class="w-12 h-12 object-contain mr-3 hidden dark:block">
+        <img src="logohitam.png" alt="Logo" class="w-12 h-12 object-contain mr-3 dark:hidden">
+<img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain mr-3 hidden dark:block">
         <h1 class="font-bold text-sm tracking-wide">Personal OS</h1>
     </div>
     <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar">
@@ -217,7 +217,7 @@
                     <h2 class="text-sm font-bold text-primary">Tentang Aplikasi</h2>
                 </div>
                 <div class="p-6 flex items-center gap-4">
-                    <img src="logoputih.png" alt="Logo" class="w-12 h-12 object-contain">
+                    <img src="logohitam.png" alt="Logo" class="w-12 h-12 object-contain">
                     <div>
                         <p class="text-sm font-bold text-primary">Personal OS</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">Versi 1.0 — Second Brain untuk produktivitas pribadi</p>
@@ -270,7 +270,7 @@
     </div>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=1784612033129"></script>
 <script src="js/crud.js"></script>
 <script>
     // Settings Logic
@@ -366,12 +366,12 @@
         if (document.documentElement.classList.contains('dark')) {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
-            if (logo) logo.src = 'logoputih.png';
+            if (logo) logo.src = 'logohitam.png';
             setTheme('light');
         } else {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
-            if (logo) logo.src = 'logohitam.png';
+            if (logo) logo.src = 'logoputih.png';
             setTheme('dark');
         }
     }

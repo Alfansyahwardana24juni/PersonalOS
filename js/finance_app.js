@@ -293,27 +293,19 @@ function updateSummaryCards() {
 
 function populateAccountSelects() {
     let opts = accounts.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
-    // tx modal
-    let txModal = document.getElementById('tx-modal');
-    if (txModal) {
-        let selects = txModal.querySelectorAll('select');
-        if(selects.length > 0) selects[0].innerHTML = opts;
-    }
-    // edit tx modal
-    let editTxModal = document.getElementById('edit-tx-modal');
-    if (editTxModal) {
-        let selects = editTxModal.querySelectorAll('select');
-        if(selects.length > 0) selects[0].innerHTML = opts;
-    }
+    
+    let txAcc = document.getElementById('tx-account');
+    if (txAcc) txAcc.innerHTML = opts;
+    
+    let editTxAcc = document.getElementById('edit-tx-account');
+    if (editTxAcc) editTxAcc.innerHTML = opts;
 }
 
 function populateGoalSelects() {
     let opts = '<option value="">-- Tidak ada --</option>' + goals.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
-    let txModal = document.getElementById('tx-modal');
-    if (txModal) {
-        let selects = txModal.querySelectorAll('select');
-        if(selects.length > 1) selects[1].innerHTML = opts;
-    }
+    
+    let txGoal = document.getElementById('tx-goal');
+    if (txGoal) txGoal.innerHTML = opts;
 }
 
 // ----------------------------------------------------
@@ -476,6 +468,43 @@ window.switchTxType = function(type) {
     if (type === 'pengeluaran' && btnPengeluaran) btnPengeluaran.className = activeClass;
     if (type === 'pemasukan' && btnPemasukan) btnPemasukan.className = activeClass;
     if (type === 'nabung' && btnNabung) btnNabung.className = activeClass;
+
+    // Toggle fields based on type
+    const categoryWrapper = document.getElementById('wrapper-tx-category');
+    const goalWrapper = document.getElementById('wrapper-tx-goal');
+    const accountLabel = document.getElementById('lbl-tx-account');
+    const categorySelect = document.getElementById('tx-category');
+    
+    if (categoryWrapper && goalWrapper && accountLabel && categorySelect) {
+        if (type === 'pengeluaran') {
+            categoryWrapper.style.display = 'block';
+            goalWrapper.style.display = 'none';
+            accountLabel.innerText = 'Sumber Rekening';
+            categorySelect.innerHTML = `
+                <option value="Food & Drink">Food & Drink</option>
+                <option value="Transport">Transport</option>
+                <option value="Belanja">Belanja</option>
+                <option value="Hosting/Domain">Hosting/Domain</option>
+                <option value="Tagihan">Tagihan</option>
+                <option value="Lainnya" selected>Lainnya</option>
+            `;
+        } else if (type === 'pemasukan') {
+            categoryWrapper.style.display = 'block';
+            goalWrapper.style.display = 'none';
+            accountLabel.innerText = 'Tujuan Rekening';
+            categorySelect.innerHTML = `
+                <option value="Gaji/Salary">Gaji/Salary</option>
+                <option value="Bonus">Bonus</option>
+                <option value="Investasi">Investasi</option>
+                <option value="Pemberian">Pemberian</option>
+                <option value="Lainnya" selected>Lainnya</option>
+            `;
+        } else if (type === 'nabung') {
+            categoryWrapper.style.display = 'none';
+            goalWrapper.style.display = 'block';
+            accountLabel.innerText = 'Sumber Rekening (Dipotong)';
+        }
+    }
 };
 
 // ----------------------------------------------------
@@ -492,11 +521,11 @@ window.saveTransaction = function() {
     const categoryEl = document.getElementById('tx-category');
     
     const accountId = accountEl ? accountEl.value : '';
-    const goalId = goalEl ? goalEl.value : '';
-    const category = categoryEl ? categoryEl.value : 'Lainnya';
+    const goalId = (goalEl && currentTxType === 'nabung') ? goalEl.value : '';
+    const category = (categoryEl && currentTxType !== 'nabung') ? categoryEl.value : (currentTxType === 'nabung' ? 'Tabungan' : 'Lainnya');
     
     if (!amount || !notes || !accountId) {
-        notify('Mohon isi jumlah, catatan, dan sumber rekening', 'error');
+        notify('Mohon isi jumlah, catatan, dan rekening', 'error');
         return;
     }
     

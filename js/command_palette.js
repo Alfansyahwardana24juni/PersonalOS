@@ -64,6 +64,30 @@
                             class="w-full px-3 py-2.5 bg-gray-50 dark:bg-[#09090b] border border-border dark:border-[#27272a] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                             onkeydown="if(event.key==='Enter') saveQuickAdd()">
                     </div>
+                    <div id="qa-details-toggle" class="text-center pt-1">
+                        <button onclick="document.getElementById('qa-details-container').classList.toggle('hidden')" class="text-xs text-brand hover:underline font-medium">Tampilkan Detail (Opsional)</button>
+                    </div>
+                    <div id="qa-details-container" class="hidden space-y-3 mt-2 pt-3 border-t border-border dark:border-[#27272a]">
+                        <div id="qa-date-row">
+                            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Tanggal / Deadline</label>
+                            <input id="qa-date" type="date" 
+                                class="w-full px-3 py-2.5 bg-gray-50 dark:bg-[#09090b] border border-border dark:border-[#27272a] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div id="qa-category-row">
+                            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Kategori</label>
+                            <select id="qa-category" 
+                                class="w-full px-3 py-2.5 bg-gray-50 dark:bg-[#09090b] border border-border dark:border-[#27272a] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                                <option value="Kerja">Kerja</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Ide">Ide</option>
+                                <option value="Jurnal">Jurnal</option>
+                                <option value="Makanan">Makanan</option>
+                                <option value="Transportasi">Transportasi</option>
+                                <option value="Gaji">Gaji</option>
+                                <option value="Lainnya" selected>Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="px-5 py-4 bg-gray-50 dark:bg-[#09090b] border-t border-border dark:border-[#27272a] flex justify-end gap-2">
                     <button onclick="closeQuickAdd()" class="px-4 py-2 text-xs font-medium text-gray-600 bg-white border border-gray-300 rounded-lg dark:text-gray-400 dark:bg-surface dark:border-[#3f3f46]">Batal</button>
@@ -255,7 +279,22 @@
             income: 'Keterangan pemasukan...'
         };
         if (titleInput) titleInput.placeholder = placeholders[type] || 'Judul...';
-    };
+
+        // Adjust category options based on type
+        const catSelect = document.getElementById('qa-category');
+        if (catSelect) {
+            catSelect.innerHTML = '';
+            let options = [];
+            if (type === 'task') options = ['Kerja', 'Personal', 'Lainnya'];
+            else if (type === 'note') options = ['Ide', 'Jurnal', 'Kerja', 'Personal', 'Lainnya'];
+            else if (type === 'expense') options = ['Makanan', 'Transportasi', 'Hiburan', 'Tagihan', 'Belanja', 'Lainnya'];
+            else if (type === 'income') options = ['Gaji', 'Bonus', 'Investasi', 'Lainnya'];
+            
+            options.forEach(opt => {
+                catSelect.innerHTML += \`<option value="\${opt}">\${opt}</option>\`;
+            });
+            catSelect.value = options[0];
+        }
 
     window.saveQuickAdd = function() {
         const title = (document.getElementById('qa-title') || {}).value || '';
@@ -268,26 +307,62 @@
 
         const id = 'qa_' + Date.now();
         const now = new Date().toISOString();
+        const inputDate = (document.getElementById('qa-date') || {}).value;
+        const inputCategory = (document.getElementById('qa-category') || {}).value || 'Lainnya';
+        const finalDate = inputDate ? new Date(inputDate).toISOString() : now;
 
         if (currentQaType === 'task') {
-            // Add to inbox_as_tasks (will be picked up by tasks page)
-            const tasks = JSON.parse(localStorage.getItem('quick_tasks') || '[]');
-            tasks.push({ id, title: title.trim(), status: 'todo', priority: 'Rendah', date: now });
-            localStorage.setItem('quick_tasks', JSON.stringify(tasks));
+            // Check if we use tasks_board_v2 instead of quick_tasks array
+            let boardData = { columns: [] };
+            try {
+                boardData = JSON.parse(localStorage.getItem('tasks_board_v2'));
+            } catch(e) {}
+            
+            if (boardData && boardData.columns && boardData.columns.length > 0) {
+                // Find todo column or first column
+                let col = boardData.columns.find(c => c.id === 'col-todo') || boardData.columns[0];
+                if (col) {
+                    if (!col.tasks) col.tasks = [];
+                    col.tasks.push({
+                        id, 
+                        title: title.trim(), 
+                        status: 'Todo', 
+                        priority: 'Sedang', 
+                        deadline: inputDate || '', 
+                        desc: '', 
+                        category: inputCategory,
+                        subtasks: []
+                    });
+                    localStorage.setItem('tasks_board_v2', JSON.stringify(boardData));
+                }
+            } else {
+                // Fallback to old inbox
+                const tasks = JSON.parse(localStorage.getItem('quick_tasks') || '[]');
+                tasks.push({ id, title: title.trim(), status: 'todo', priority: 'Rendah', date: finalDate, category: inputCategory });
+                localStorage.setItem('quick_tasks', JSON.stringify(tasks));
+            }
             if (window.logActivity) window.logActivity('task', 'Tugas ditambahkan: ' + title.trim());
             if (window.showToast) window.showToast('Tugas berhasil ditambahkan!', 'success');
 
         } else if (currentQaType === 'note') {
-            const notes = JSON.parse(localStorage.getItem('user_notes') || '[]');
-            notes.unshift({ id, title: title.trim(), content: '', tags: [], createdAt: now, updatedAt: now, pinned: false });
-            localStorage.setItem('user_notes', JSON.stringify(notes));
+            const notes = JSON.parse(localStorage.getItem('personal_os_notes') || localStorage.getItem('user_notes') || '[]');
+            notes.unshift({ 
+                id, 
+                title: title.trim(), 
+                content: '', 
+                category: inputCategory, 
+                date: new Date(finalDate).toLocaleDateString('id-ID', {day: 'numeric', month: 'short'}) + ', ' + new Date(finalDate).toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'})
+            });
+            // Try saving to personal_os_notes first since we updated it
+            localStorage.setItem('personal_os_notes', JSON.stringify(notes));
+            localStorage.setItem('user_notes', JSON.stringify(notes)); // Backwards compatibility
             if (window.logActivity) window.logActivity('note', 'Catatan dibuat: ' + title.trim());
             if (window.showToast) window.showToast('Catatan berhasil disimpan!', 'success');
 
         } else if (currentQaType === 'expense' || currentQaType === 'income') {
             const txType = currentQaType === 'expense' ? 'pengeluaran' : 'pemasukan';
             const transactions = JSON.parse(localStorage.getItem('finance_transactions') || '[]');
-            transactions.push({ id, type: txType, amount, notes: title.trim(), account: '', category: 'Lainnya', date: now });
+            transactions.push({ id, type: txType, amount, notes: title.trim(), account: '', category: inputCategory, date: finalDate });
             localStorage.setItem('finance_transactions', JSON.stringify(transactions));
             if (window.logActivity) window.logActivity('finance', (txType === 'pengeluaran' ? 'Pengeluaran' : 'Pemasukan') + ' dicatat: ' + title.trim());
             if (window.showToast) window.showToast((txType === 'pengeluaran' ? 'Pengeluaran' : 'Pemasukan') + ' berhasil dicatat!', 'success');
@@ -297,6 +372,9 @@
         document.getElementById('qa-title').value = '';
         const amtEl = document.getElementById('qa-amount');
         if (amtEl) amtEl.value = '';
+        const dateEl = document.getElementById('qa-date');
+        if (dateEl) dateEl.value = '';
+        document.getElementById('qa-details-container').classList.add('hidden');
     };
 
     // -----------------------------------------------

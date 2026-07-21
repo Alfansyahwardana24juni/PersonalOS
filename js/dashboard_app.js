@@ -92,42 +92,68 @@ function updateDashboardStats() {
     const taskContainer = document.getElementById('dashboard-tasks');
     if (taskContainer) {
         let allTasks = [];
-        ['state_board-todo', 'state_board-inprogress'].forEach(key => {
-            const state = localStorage.getItem(key);
-            if (state) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(state, 'text/html');
-                const cards = doc.querySelectorAll('.kanban-card');
-                cards.forEach(card => {
-                    const titleEl = card.querySelector('h4');
-                    if (titleEl) {
-                        allTasks.push(titleEl.innerText);
-                    }
-                });
-                if (allTasks.length === 0) {
-                    // Fallback to h4 directly
-                    const titles = doc.querySelectorAll('h4');
-                    titles.forEach(t => allTasks.push(t.innerText));
+        let upcomingTasks = []; // For deadlines
+        
+        try {
+            const boardData = JSON.parse(localStorage.getItem('tasks_board_v2')) || { columns: [] };
+            boardData.columns.forEach(col => {
+                if (col.id !== 'col-done' && col.tasks) {
+                    col.tasks.forEach(task => {
+                        allTasks.push(task);
+                        if (task.deadline) {
+                            upcomingTasks.push(task);
+                        }
+                    });
                 }
-            }
-        });
+            });
+        } catch (e) {
+            console.error('Error parsing tasks_board_v2', e);
+        }
         
         const statTasksEl = document.getElementById('stat-tasks');
         const statTasksTotEl = document.getElementById('stat-tasks-total');
-        if (statTasksEl) statTasksEl.innerText = Math.min(allTasks.length, 5); // Example
+        if (statTasksEl) statTasksEl.innerText = Math.min(allTasks.length, 5);
         if (statTasksTotEl) statTasksTotEl.innerText = '/ ' + allTasks.length;
         
+        // Update Deadlines Stat (Tenggat Waktu)
+        // Find the nearest deadline
+        const deadlineStatEl = document.querySelector('div.grid > div:nth-child(2) > div.text-2xl.font-semibold');
+        if (deadlineStatEl) {
+            if (upcomingTasks.length > 0) {
+                // sort by date ascending
+                upcomingTasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+                const nearest = upcomingTasks[0];
+                const diffDays = Math.ceil((new Date(nearest.deadline) - new Date()) / (1000 * 60 * 60 * 24));
+                
+                if (diffDays < 0) {
+                    deadlineStatEl.innerText = 'Terlewat';
+                    deadlineStatEl.classList.add('text-danger');
+                } else if (diffDays === 0) {
+                    deadlineStatEl.innerText = 'Hari ini';
+                    deadlineStatEl.classList.add('text-warning');
+                } else {
+                    deadlineStatEl.innerText = diffDays + ' Hari';
+                    deadlineStatEl.classList.remove('text-danger', 'text-warning');
+                }
+            } else {
+                deadlineStatEl.innerText = '-';
+            }
+        }
+        
         let tHtml = '';
-        allTasks.slice(0, 5).forEach(title => {
+        allTasks.slice(0, 5).forEach(task => {
+            let priorityBadge = task.priority === 'Tinggi' ? 'bg-red-50 text-red-700 ring-red-600/10' :
+                                (task.priority === 'Sedang' ? 'bg-yellow-50 text-yellow-800 ring-yellow-600/20' : 'bg-gray-50 text-gray-600 ring-gray-500/10');
             tHtml += `
-            <li class="p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer dark:hover:bg-[#27272a]">
+            <li class="p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer dark:hover:bg-[#27272a]" onclick="location.href='tasks.html'">
                 <div class="pt-0.5">
                     <input type="checkbox" class="w-4 h-4 text-primary bg-white border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer transition-all dark:bg-surface dark:border-[#3f3f46]">
                 </div>
                 <div class="ml-3 flex-1">
-                    <p class="text-sm font-medium text-primary">${title}</p>
+                    <p class="text-sm font-medium text-primary">${task.title}</p>
                     <div class="flex items-center gap-3 mt-1.5">
-                        <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-0.5 text-[10px] font-medium text-gray-600 dark:bg-[#09090b] dark:text-gray-400">Tugas</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">Tugas</span>
+                        <span class="inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-medium ring-1 ring-inset ${priorityBadge} dark:bg-[#09090b] dark:text-gray-400 dark:ring-gray-700">${task.priority || 'Rendah'}</span>
                     </div>
                 </div>
             </li>`;
