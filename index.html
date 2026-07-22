@@ -17,21 +17,23 @@
     <link rel="manifest" href="manifest.json">
 
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xpxc0dqe5x");
-</script>
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "xpxc0dqe5x");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body
     class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-primary selection:text-white">
     <!-- Splash Screen -->
-    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background dark:bg-surface transition-opacity duration-500">
+    <div id="splash-screen"
+        class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background dark:bg-surface transition-opacity duration-500">
         <img src="logoputih.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 dark:hidden animate-pulse">
         <img src="logohitam.png" alt="Personal OS Logo" class="w-24 h-24 mb-4 hidden dark:block animate-pulse">
-        <h1 class="text-2xl font-bold mb-2">Personal OS</h1>
+        <h1 class="text-lg lg:text-2xl font-bold mb-2">Personal OS</h1>
         <div class="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
     </div>
     <script>
@@ -62,30 +64,30 @@
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                         </path>
                     </svg> Dasbor </a> <a href="tasks.html" id="nav-tasks"
-                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
+                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-[10px] lg:text-sm font-medium text-gray-500 truncate hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg> Tugas </a> <a href="calendar.html" id="nav-calendar"
-                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
+                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-[10px] lg:text-sm font-medium text-gray-500 truncate hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                         </path>
                     </svg> Kalender </a> <a href="notes.html" id="nav-notes"
-                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
+                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-[10px] lg:text-sm font-medium text-gray-500 truncate hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                         </path>
                     </svg> Catatan </a> <a href="finance.html" id="nav-finance"
-                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
+                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-[10px] lg:text-sm font-medium text-gray-500 truncate hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg> Keuangan </a>
-                
+
                 <div class="my-4 border-t border-border dark:border-[#27272a]"></div>
                 <a href="#" onclick="triggerInstallPWA(event)"
                     class="flex items-center px-3 py-2 bg-brand/10 text-brand hover:bg-brand/20 rounded-md text-sm font-semibold transition-colors group dark:bg-brand/20 dark:text-brand dark:hover:bg-brand/30">
@@ -95,342 +97,435 @@
                     </svg>
                     Install Aplikasi
                 </a>
-            <a href="settings.html" id="nav-settings" class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-sm font-medium text-gray-500 hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400 mt-1">
-                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Pengaturan
-            </a>
+                <a href="settings.html" id="nav-settings"
+                    class="flex items-center px-3 py-2 hover:bg-gray-50 rounded-md text-[10px] lg:text-sm font-medium text-gray-500 truncate hover:text-primary transition-colors group dark:hover:bg-[#27272a] dark:text-gray-400 mt-1">
+                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z">
+                        </path>
+                    </svg> Pengaturan
+                </a>
             </nav>
         </div>
     </aside> <!-- Main Content Area -->
     <main class="flex-1 flex flex-col h-full overflow-hidden relative"> <!-- Topbar -->
-        <header
-            class="h-16 bg-surface border-b border-border flex items-center justify-between px-6 shrink-0 z-10 dark:bg-surface dark:border-[#27272a]">
-            <div class="flex-1 max-w-lg">
-                <h1 class="text-xl font-bold text-primary">Dashboard</h1>
-            </div> <!-- Header Right Actions -->
-            <div class="flex items-center space-x-4 ml-4">
 
-<button id="topbar-search-btn" onclick="if(typeof window.openCommandPalette === 'function') window.openCommandPalette()" class="relative p-2 text-gray-400 hover:text-primary transition-colors bg-gray-100 dark:bg-[#27272a] rounded-full hidden md:flex items-center gap-2" title="Cari (Ctrl+K)">
-    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-    <span class="text-[10px] font-bold text-gray-500 dark:text-gray-400 pr-1">Ctrl K</span>
-</button>
-<button onclick="if(typeof window.openCommandPalette === 'function') window.openCommandPalette()" class="md:hidden relative p-2 text-gray-400 hover:text-primary transition-colors" title="Cari">
-    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-</button>
+        <!-- Topbar -->
+        <header
+            class="h-16 bg-surface flex items-center justify-between px-6 shrink-0 z-10 dark:bg-surface dark:border-[#27272a] border-b border-border/50">
+            <div class="flex-1 max-w-lg">
+                <h1 class="text-xl font-bold text-primary">PersonalOS</h1>
+            </div>
+            <!-- Header Right Actions -->
+            <div class="flex items-center space-x-4 ml-4">
+                <button id="topbar-search-btn"
+                    onclick="if(typeof window.openCommandPalette === 'function') window.openCommandPalette()"
+                    class="relative p-2 text-gray-400 hover:text-primary transition-colors bg-gray-100 dark:bg-[#27272a] rounded-full hidden md:flex items-center gap-2"
+                    title="Cari (Ctrl+K)">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <span class="text-[10px] font-bold text-gray-500 dark:text-gray-400 pr-1">Ctrl K</span>
+                </button>
+                <button onclick="if(typeof window.openCommandPalette === 'function') window.openCommandPalette()"
+                    class="md:hidden relative p-2 text-gray-400 hover:text-primary transition-colors" title="Cari">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
                 <button onclick="toggleDarkMode()"
                     class="relative p-2 text-gray-400 hover:text-primary transition-colors" title="Ganti Tema">
-                    <!-- Sun icon for dark mode (to switch to light) -->
                     <svg class="h-5 w-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
                         </path>
                     </svg>
-                    <!-- Moon icon for light mode (to switch to dark) -->
                     <svg class="h-5 w-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
                         </path>
                     </svg>
                 </button>
-
-                <!-- NEW: Inbox Icon specifically moved to header for mobile --> <a href="inbox.html"
-                    class="relative p-2 text-gray-400 hover:text-primary transition-colors"> <svg class="h-5 w-5"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="inbox.html" class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
                         </path>
-                    </svg> <span
+                    </svg>
+                    <span
                         class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-danger ring-2 ring-surface"></span>
                 </a>
                 <div class="relative" id="profile-menu-container">
                     <div class="h-8 w-8 rounded-full border border-border overflow-hidden cursor-pointer hover:ring-2 hover:ring-gray-100 transition-all dark:border-[#27272a]"
                         onclick="if(typeof window.toggleProfileMenu === 'function') { window.toggleProfileMenu(event); } else { document.getElementById('profile-dropdown').classList.toggle('opacity-0'); document.getElementById('profile-dropdown').classList.toggle('invisible'); document.getElementById('profile-dropdown').classList.toggle('scale-95'); document.getElementById('profile-dropdown').classList.toggle('scale-100'); event.stopPropagation(); }">
                         <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC"
-                            alt="Avatar" class="h-full w-full object-cover"> </div> <!-- Dropdown -->
+                            alt="Avatar" class="h-full w-full object-cover">
+                    </div>
                     <div id="profile-dropdown"
-                        class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible transition-all transform scale-95 origin-top-right z-50 dark:bg-surface dark:border-[#27272a]">
-                        <div class="p-4 border-b border-gray-50 flex items-center gap-3">
+                        class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 opacity-0 invisible transition-all transform scale-95 origin-top-right z-50 dark:bg-surface dark:border-[#27272a]">
+                        <div class="p-4 border-b border-gray-50 flex items-center gap-3 dark:border-[#27272a]">
                             <div
                                 class="h-10 w-10 rounded-full border border-gray-200 overflow-hidden shrink-0 bg-gray-50 dark:border-[#27272a] dark:bg-[#09090b]">
                                 <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=F8FAFC"
-                                    alt="Avatar" class="h-full w-full object-cover"> </div>
+                                    alt="Avatar" class="h-full w-full object-cover">
+                            </div>
                             <div>
                                 <p class="text-sm font-bold text-gray-800 dark:text-gray-200">Felix</p>
                                 <p class="text-[10px] text-gray-500 dark:text-gray-400">felix@example.com</p>
                             </div>
                         </div>
-                        <div class="p-2"> <a href="profile.html"
-                                class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors dark:text-gray-400 dark:hover:bg-[#27272a]">
+                        <div class="p-2">
+                            <a href="profile.html"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-xl transition-colors dark:text-gray-400 dark:hover:bg-[#27272a]">
                                 <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg> Edit Profil </a>
-                            <a href="#" onclick="triggerInstallPWA(event)" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors dark:text-gray-400 dark:hover:bg-[#27272a] text-brand dark:text-brand">
-                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                                </svg>
-                                Install Aplikasi
+                                </svg> Edit Profil
                             </a>
-                            <a href="#"
-                                class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors dark:text-gray-400 dark:hover:bg-[#27272a]">
+                            <a href="settings.html"
+                                class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50 rounded-xl transition-colors dark:text-gray-400 dark:hover:bg-[#27272a]">
                                 <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                                     </path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg> Pengaturan Akun </a>
+                                </svg> Pengaturan
+                            </a>
                         </div>
-                        <div class="p-2 border-t border-gray-50"> <button
-                                onclick="window.showToast('Anda telah keluar.', 'success')"
-                                class="w-full flex items-center px-3 py-2 text-sm font-medium text-danger hover:bg-red-50 rounded-lg transition-colors">
-                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                    </path>
-                                </svg> Keluar </button> </div>
                     </div>
                 </div>
             </div>
-        </header> <!-- Scrollable Dashboard Content -->
-        <div class="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-10">
-            <div class="max-w-6xl mx-auto space-y-10"> <!-- Greeting -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl font-semibold tracking-tight text-primary">Ringkasan</h2>
-                        <p class="text-sm text-gray-500 mt-1 dark:text-gray-400">Berikut aktivitas Anda.</p>
-                    </div>
-                    <div class="flex items-center gap-2"> <input type="date" id="dash-date-from"
-                            class="px-3 py-2 bg-white border border-border rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary dark:bg-surface dark:border-[#27272a] dark:text-gray-300">
-                        <span class="text-gray-500 dark:text-gray-400">-</span> <input type="date" id="dash-date-to"
-                            class="px-3 py-2 bg-white border border-border rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary dark:bg-surface dark:border-[#27272a] dark:text-gray-300">
-                    </div>
-                </div> <!-- Stats Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        </header>
+
+        <!-- Main Dashboard -->
+        <div class="flex-1 overflow-y-auto custom-scrollbar bg-[#F8FAFC] dark:bg-[#09090b]">
+            <div class="max-w-6xl mx-auto p-6 lg:p-10 space-y-8 animate-fade-in">
+
+                <!-- Welcome Header -->
+                <div class="flex flex-col mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white" id="dash-greeting">Good Morning, Alfa
+                        👋</h1>
+                    <p class="text-gray-500 mt-1 font-medium dark:text-gray-400" id="dash-date">Monday, 22 July 2026</p>
+                </div>
+
+                <!-- Financial Overview (Horizontal Scroll on Mobile) -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+
+                    <!-- Wealth Card -->
                     <div
-                        class="bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow cursor-pointer group dark:bg-surface dark:border-[#27272a]">
-                        <div class="flex justify-between items-start mb-4"> <span
-                                class="text-sm font-medium text-gray-500 dark:text-gray-400">Tugas Hari Ini</span>
+                        class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-4">
                             <div
-                                class="p-2 bg-gray-50 rounded-lg group-hover:bg-gray-100 transition-colors dark:bg-[#09090b]">
-                                <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
+                                class="p-2.5 bg-blue-50 text-blue-600 rounded-xl dark:bg-blue-900/20 dark:text-blue-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg> </div>
-                        </div>
-                        <div class="flex items-baseline gap-2"> <span class="text-2xl font-semibold" id="stat-tasks">0</span> <span
-                                class="text-sm text-gray-400" id="stat-tasks-total">/ 0</span> </div>
-                    </div>
-                    <div
-                        class="bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow cursor-pointer group dark:bg-surface dark:border-[#27272a]">
-                        <div class="flex justify-between items-start mb-4"> <span
-                                class="text-sm font-medium text-gray-500 dark:text-gray-400">Tenggat Waktu</span>
-                            <div
-                                class="p-2 bg-orange-50 rounded-lg group-hover:bg-orange-100 transition-colors dark:bg-orange-500/10 dark:border-orange-500/20">
-                                <svg class="w-4 h-4 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <span
+                                class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-lg dark:bg-green-900/20 dark:text-green-400 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg> </div>
+                                        d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                                </svg> 12.5%
+                            </span>
                         </div>
-                        <div class="text-2xl font-semibold">2 Hari</div>
-                    </div>
-                    <div
-                        class="bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow cursor-pointer group dark:bg-surface dark:border-[#27272a]">
-                        <div class="flex justify-between items-start mb-4"> <span
-                                class="text-sm font-medium text-gray-500 dark:text-gray-400">Pengeluaran Hari Ini</span>
-                            <div
-                                class="p-2 bg-red-50 rounded-lg group-hover:bg-red-100 transition-colors dark:bg-red-500/10 dark:border-red-500/20">
-                                <svg class="w-4 h-4 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
-                                </svg> </div>
+                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400">Total
+                            Wealth</p>
+                        <h3 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white mt-1"
+                            id="dash-total-wealth">Rp 0</h3>
+                        <div class="h-10 mt-4 w-full">
+                            <canvas id="chart-wealth"></canvas>
                         </div>
-                        <div class="text-2xl font-semibold" id="stat-expense">Rp0</div>
                     </div>
+
+                    <!-- Income Card -->
                     <div
-                        class="bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow cursor-pointer group dark:bg-surface dark:border-[#27272a]">
-                        <div class="flex justify-between items-start mb-4"> <span
-                                class="text-sm font-medium text-gray-500 dark:text-gray-400">Pemasukan Bulanan</span>
+                        class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-4">
                             <div
-                                class="p-2 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors dark:bg-green-500/10 dark:border-green-500/20">
-                                <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="p-2.5 bg-green-50 text-green-600 rounded-xl dark:bg-green-900/20 dark:text-green-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                </svg> </div>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="text-2xl font-semibold" id="stat-income">Rp0</div>
+                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400">Income
+                            This Month</p>
+                        <h3 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white mt-1" id="dash-income">Rp
+                            0</h3>
+                        <div class="h-10 mt-4 w-full">
+                            <canvas id="chart-income"></canvas>
+                        </div>
                     </div>
-                </div> <!-- Main Content Layout -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8"> <!-- Left Column (Wider) -->
-                    <div class="lg:col-span-2 space-y-8"> <!-- Tasks -->
-                        <section>
+
+                    <!-- Expense Card -->
+                    <div
+                        class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="p-2.5 bg-red-50 text-red-600 rounded-xl dark:bg-red-900/20 dark:text-red-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400">Expense
+                            This Month</p>
+                        <h3 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white mt-1" id="dash-expense">
+                            Rp 0</h3>
+                        <div class="h-10 mt-4 w-full">
+                            <canvas id="chart-expense"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Saving Goal Card -->
+                    <div
+                        class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="p-2.5 bg-brand/10 text-brand rounded-xl dark:bg-brand/20">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4">
+                                    </path>
+                                </svg>
+                            </div>
+                            <span
+                                class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded-lg dark:bg-[#18181b] dark:text-gray-400"
+                                id="dash-goal-pct">0%</span>
+                        </div>
+                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400">Saving
+                            Goal</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mt-1 truncate" id="dash-goal-text">Rp
+                            0 / 0</h3>
+                        <div class="w-full bg-gray-100 rounded-full h-2 mt-6 dark:bg-[#18181b] overflow-hidden">
+                            <div class="bg-brand h-2 rounded-full transition-all duration-1000 ease-out"
+                                id="dash-goal-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Layout Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                    <!-- Left Column (Wider) -->
+                    <div class="lg:col-span-2 space-y-6">
+
+                        <!-- Weekly Trends (Tabbed for Space Efficiency) -->
+                        <div
+                            class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a] col-span-1 lg:col-span-2">
                             <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-semibold text-base">Tugas Prioritas</h3> <a href="tasks.html"
-                                    class="text-xs font-medium text-gray-500 hover:text-primary transition-colors dark:text-gray-400">Lihat
-                                    semua</a>
+                                <h3 class="font-bold text-sm text-gray-900 dark:text-white" id="trend-title">Task
+                                    Velocity (7 Days)</h3>
+                                <div class="flex bg-gray-100 p-1 rounded-lg dark:bg-[#18181b] gap-1">
+                                    <button onclick="switchTrendTab('velocity')" id="tab-velocity"
+                                        class="px-3 py-1 text-[10px] md:text-xs font-semibold rounded-md transition-all bg-white shadow-sm text-brand dark:bg-surface dark:text-brand">Tasks</button>
+                                    <button onclick="switchTrendTab('expense')" id="tab-expense"
+                                        class="px-3 py-1 text-[10px] md:text-xs font-semibold rounded-md transition-all text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Expenses</button>
+                                </div>
                             </div>
-                            <div
-                                class="bg-surface rounded-xl border border-border shadow-sm overflow-hidden dark:bg-surface dark:border-[#27272a]">
-                                <ul id="dashboard-tasks" class="divide-y divide-border">
-                                    <li
-                                        class="p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer dark:hover:bg-[#27272a]">
-                                        <div class="pt-0.5"> <input type="checkbox"
-                                                class="w-4 h-4 text-primary bg-white border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer transition-all dark:bg-surface dark:border-[#3f3f46]">
-                                        </div>
-                                        <div class="ml-3 flex-1">
-                                            <p class="text-sm font-medium text-primary">Selesaikan Desain UI untuk
-                                                Dasbor</p>
-                                            <div class="flex items-center gap-3 mt-1.5"> <span
-                                                    class="text-xs text-gray-500 dark:text-gray-400">Personal OS</span>
-                                                <span
-                                                    class="inline-flex items-center rounded-md bg-red-50 px-2 py-0.5 text-[10px] font-medium text-red-700 ring-1 ring-inset ring-red-600/10 dark:bg-red-500/10 dark:border-red-500/20 dark:text-red-400 dark:ring-red-500/20">Tinggi</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li
-                                        class="p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer dark:hover:bg-[#27272a]">
-                                        <div class="pt-0.5"> <input type="checkbox"
-                                                class="w-4 h-4 text-primary bg-white border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer transition-all dark:bg-surface dark:border-[#3f3f46]">
-                                        </div>
-                                        <div class="ml-3 flex-1">
-                                            <p class="text-sm font-medium text-primary">Bayar tagihan internet</p>
-                                            <div class="flex items-center gap-3 mt-1.5"> <span
-                                                    class="text-xs text-gray-500 dark:text-gray-400">Keuangan</span>
-                                                <span
-                                                    class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-0.5 text-[10px] font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 dark:bg-yellow-500/10 dark:border-yellow-500/20 dark:text-yellow-300">Sedang</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li
-                                        class="p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer opacity-60 hover:opacity-100 dark:hover:bg-[#27272a]">
-                                        <div class="pt-0.5"> <input type="checkbox" checked
-                                                class="w-4 h-4 text-primary bg-white border-gray-300 rounded focus:ring-primary focus:ring-2 cursor-pointer transition-all dark:bg-surface dark:border-[#3f3f46]">
-                                        </div>
-                                        <div class="ml-3 flex-1">
-                                            <p
-                                                class="text-sm font-medium text-gray-500 line-through dark:text-gray-400">
-                                                Tinjau Pull Request #42</p>
-                                            <div class="flex items-center gap-3 mt-1.5"> <span
-                                                    class="inline-flex items-center rounded-md bg-gray-50 px-2 py-0.5 text-[10px] font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 dark:bg-[#09090b] dark:text-gray-400">Selesai</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+
+                            <div id="view-velocity" class="h-40 w-full transition-opacity duration-300">
+                                <canvas id="chart-task-velocity"></canvas>
                             </div>
-                        </section> <!-- Recent Notes -->
-                        <section>
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-semibold text-base">Catatan Terbaru</h3> <a href="notes.html"
-                                    class="text-xs font-medium text-gray-500 hover:text-primary transition-colors dark:text-gray-400">Lihat
-                                    semua</a>
+
+                            <div id="view-expense" class="h-40 w-full hidden transition-opacity duration-300">
+                                <canvas id="chart-daily-expense"></canvas>
                             </div>
-                            <div id="dashboard-notes" class="grid grid-cols-1 sm:grid-cols-2 gap-4"> <!-- Note Card --> <a href="notes.html"
-                                    class="block bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md hover:border-gray-300 transition-all group dark:bg-surface dark:border-[#27272a]">
-                                    <h4 class="font-semibold text-sm mb-2 group-hover:text-primary transition-colors">
-                                        Catatan Rapat: Rilis Alpha</h4>
-                                    <p class="text-xs text-gray-500 line-clamp-3 leading-relaxed dark:text-gray-400">
-                                        Mendiskusikan fitur inti untuk rilis alpha mendatang. Kita perlu fokus pada
-                                        kemampuan offline serta tata letak minimalis yang modern.</p>
-                                    <div class="mt-4 flex items-center justify-between"> <span
-                                            class="text-[10px] font-medium px-2 py-1 bg-gray-100 text-gray-600 rounded-md dark:bg-[#18181b] dark:text-gray-400">#pekerjaan</span>
-                                        <span class="text-[10px] text-gray-400">2j lalu</span> </div>
-                                </a> <!-- Note Card --> <a href="notes.html"
-                                    class="block bg-surface p-5 rounded-xl border border-border shadow-sm hover:shadow-md hover:border-gray-300 transition-all group dark:bg-surface dark:border-[#27272a]">
-                                    <h4 class="font-semibold text-sm mb-2 group-hover:text-primary transition-colors">
-                                        Ide Akhir Pekan</h4>
-                                    <p class="text-xs text-gray-500 line-clamp-3 leading-relaxed dark:text-gray-400">1.
-                                        Pergi ke toko buku.<br>2. Perbaiki sepeda.<br>3. Bersih-bersih ruang kerja.</p>
-                                    <div class="mt-4 flex items-center justify-between"> <span
-                                            class="text-[10px] font-medium px-2 py-1 bg-gray-100 text-gray-600 rounded-md dark:bg-[#18181b] dark:text-gray-400">#pribadi</span>
-                                        <span class="text-[10px] text-gray-400">Kemarin</span> </div>
-                                </a> </div>
-                        </section>
-                    </div> <!-- Right Column (Narrower) -->
-                    <div class="space-y-8"> <!-- Activity Timeline -->
-                        <section>
-                            <h3 class="font-semibold text-base mb-4">Aktivitas</h3>
-                            <div
-                                class="bg-surface rounded-xl border border-border p-5 shadow-sm dark:bg-surface dark:border-[#27272a]">
-                                <div id="dashboard-activity" class="relative pl-5 border-l-2 border-gray-100 space-y-6 dark:border-[#27272a]">
-                                    <!-- Activity Item -->
-                                    <div class="relative">
-                                        <div
-                                            class="absolute -left-[25px] top-1 h-3 w-3 rounded-full bg-success ring-4 ring-white">
-                                        </div>
-                                        <p class="text-sm"><span class="font-medium">Tugas selesai</span></p>
-                                        <p class="text-xs text-gray-500 mt-1 dark:text-gray-400">Tinjau Pull Request #42
-                                        </p> <span class="text-[10px] text-gray-400 mt-1 block">10:30 WIB</span>
-                                    </div> <!-- Activity Item -->
-                                    <div class="relative">
-                                        <div
-                                            class="absolute -left-[25px] top-1 h-3 w-3 rounded-full bg-primary ring-4 ring-white dark:bg-[#FAFAFA]">
-                                        </div>
-                                        <p class="text-sm"><span class="font-medium">Catatan dibuat</span></p>
-                                        <p class="text-xs text-gray-500 mt-1 dark:text-gray-400">Catatan Rapat: Rilis
-                                            Alpha</p> <span class="text-[10px] text-gray-400 mt-1 block">09:15
-                                            WIB</span>
-                                    </div> <!-- Activity Item -->
-                                    <div class="relative">
-                                        <div
-                                            class="absolute -left-[25px] top-1 h-3 w-3 rounded-full bg-danger ring-4 ring-white">
-                                        </div>
-                                        <p class="text-sm"><span class="font-medium">Pengeluaran ditambahkan</span></p>
-                                        <p class="text-xs text-gray-500 mt-1 dark:text-gray-400">Kopi (Rp45.000)</p>
-                                        <span class="text-[10px] text-gray-400 mt-1 block">08:00 WIB</span>
+                        </div>
+
+                        <script>
+                            function switchTrendTab(tab) {
+                                const vTab = document.getElementById('tab-velocity');
+                                const eTab = document.getElementById('tab-expense');
+                                const vView = document.getElementById('view-velocity');
+                                const eView = document.getElementById('view-expense');
+                                const title = document.getElementById('trend-title');
+
+                                const activeClass = 'bg-white shadow-sm text-brand dark:bg-surface dark:text-brand';
+                                const inactiveClass = 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white bg-transparent shadow-none';
+
+                                if (tab === 'velocity') {
+                                    vTab.className = `px-3 py-1 text-[10px] md:text-xs font-semibold rounded-md transition-all ${activeClass}`;
+                                    eTab.className = `px-3 py-1 text-[10px] md:text-xs font-semibold rounded-md transition-all ${inactiveClass}`;
+                                    eView.classList.add('hidden');
+                                    vView.classList.remove('hidden');
+                                    title.textContent = 'Task Velocity (7 Days)';
+                                } else {
+                                    eTab.className = `px-3 py-1 text-[10px] md:text-xs font-semibold rounded-md transition-all ${activeClass}`;
+                                    vTab.className = `px-3 py-1 text-[10px] md:text-xs font-semibold rounded-md transition-all ${inactiveClass}`;
+                                    vView.classList.add('hidden');
+                                    eView.classList.remove('hidden');
+                                    title.textContent = 'Daily Expenses (7 Days)';
+                                }
+                            }
+                        </script>
+
+                        <!-- Today's Tasks -->
+                        <div
+                            class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a]">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Today's Tasks</h3>
+                                <a href="tasks.html" class="text-xs font-bold text-brand hover:underline">View All</a>
+                            </div>
+                            <ul id="dashboard-tasks" class="space-y-3">
+                                <!-- Tasks injected here -->
+                                <div class="py-8 text-center text-sm text-gray-400">Loading tasks...</div>
+                            </ul>
+                        </div>
+
+                        <!-- Cash Flow Chart -->
+                        <div
+                            class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a]">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Cash Flow</h3>
+                            </div>
+                            <div class="h-64 w-full">
+                                <canvas id="chart-cashflow"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column (Narrower) -->
+                    <div class="space-y-6">
+
+                        <!-- Productivity Summary -->
+                        <div
+                            class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a]">
+                            <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-6">Productivity</h3>
+                            <div class="flex items-center justify-center mb-6">
+                                <!-- Circular Progress -->
+                                <div class="relative w-32 h-32">
+                                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                        <path class="text-gray-100 dark:text-[#18181b]" stroke-width="3"
+                                            stroke="currentColor" fill="none"
+                                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path class="text-brand transition-all duration-1000 ease-out"
+                                            id="dash-prod-ring" stroke-dasharray="0, 100" stroke-width="3"
+                                            stroke-linecap="round" stroke="currentColor" fill="none"
+                                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                        <span class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white"
+                                            id="dash-prod-pct">0%</span>
+                                        <span class="text-[10px] text-gray-500">Done</span>
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                            <div class="grid grid-cols-2 gap-4 text-center">
+                                <div class="p-3 bg-gray-50 rounded-xl dark:bg-[#09090b]">
+                                    <p class="text-xl font-bold text-gray-900 dark:text-white" id="dash-prod-completed">
+                                        0</p>
+                                    <p class="text-[10px] font-medium text-gray-500 uppercase tracking-wider mt-1">
+                                        Completed</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-xl dark:bg-[#09090b]">
+                                    <p class="text-xl font-bold text-gray-900 dark:text-white" id="dash-prod-pending">0
+                                    </p>
+                                    <p class="text-[10px] font-medium text-gray-500 uppercase tracking-wider mt-1">
+                                        Pending</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expense Analytics -->
+                        <div
+                            class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a]">
+                            <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-6">Expense Analytics</h3>
+                            <div class="h-48 w-full flex justify-center">
+                                <canvas id="chart-pie-expense"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Deadline -->
+                        <div
+                            class="bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 dark:bg-surface dark:border-[#27272a]">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="font-bold text-lg text-gray-900 dark:text-white">Upcoming</h3>
+                            </div>
+                            <ul id="dashboard-upcoming" class="space-y-4">
+                                <!-- Deadlines injected here -->
+                                <div class="text-center text-sm text-gray-400">No upcoming deadlines</div>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
-            </div> <!-- Bottom spacing for mobile navigation and FAB -->
-            <div class="h-24 md:h-10"></div>
-        </div> <!-- Quick Add FAB --> <button id="quick-add-btn"
+
+                <div class="h-24 md:h-10"></div>
+            </div>
+        </div>
+
+        <!-- Quick Add FAB (Global) -->
+        <button id="quick-add-btn"
             class="absolute bottom-20 right-4 md:bottom-8 md:right-8 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-gray-400/30 hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center group focus:outline-none focus:ring-4 focus:ring-gray-200 z-50 dark:bg-[#FAFAFA] dark:text-[#09090b]">
             <svg class="w-6 h-6 transform group-hover:rotate-90 transition-transform duration-300 ease-in-out"
                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg> </button> <!-- Mobile Bottom Navigation (Exactly 5 items!) -->
+            </svg>
+        </button>
+
+        <!-- Mobile Nav -->
         <nav
             class="md:hidden absolute bottom-0 left-0 right-0 bg-surface border-t border-border flex justify-around items-center h-16 z-40 px-2 pb-safe shadow-[0_-1px_10px_rgba(0,0,0,0.02)] dark:bg-surface dark:border-[#27272a]">
             <a href="index.html"
-                class="flex flex-col items-center justify-center w-full h-full text-primary transition-colors"> <svg
-                    class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                class="flex flex-col items-center justify-center w-full h-full text-brand transition-colors">
+                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                     </path>
-                </svg> <span class="text-[10px] font-medium">Beranda</span> </a> <a href="tasks.html"
+                </svg>
+                <span class="text-[10px] font-medium">Dasbor</span>
+            </a>
+            <a href="tasks.html"
                 class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
                 <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg> <span class="text-[10px] font-medium">Tugas</span> </a> <a href="calendar.html"
+                </svg>
+                <span class="text-[10px] font-medium">Tugas</span>
+            </a>
+            <a href="calendar.html"
                 class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
                 <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                     </path>
-                </svg> <span class="text-[10px] font-medium">Kalender</span> </a> <a href="notes.html"
+                </svg>
+                <span class="text-[10px] font-medium">Kalender</span>
+            </a>
+            <a href="notes.html"
                 class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
                 <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                     </path>
-                </svg> <span class="text-[10px] font-medium">Catatan</span> </a> <a href="finance.html"
+                </svg>
+                <span class="text-[10px] font-medium">Catatan</span>
+            </a>
+            <a href="finance.html"
                 class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-primary transition-colors">
                 <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                     </path>
-                </svg> <span class="text-[10px] font-medium">Keuangan</span> </a> </nav>
+                </svg>
+                <span class="text-[10px] font-medium">Keuangan</span>
+            </a>
+        </nav>
+
     </main> <!-- Custom JS -->
     <script src="js/main.js?v=1784683538836"></script>
     <script src="js/crud.js"></script>
     <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
     <script src="js/db.js?v=1784691513581"></script>
-    <script src="js/dashboard_app.js?v=1784689472923"></script>
-    
+    <script src="js/dashboard_app.js?v=1784696577016"></script>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -469,29 +564,29 @@
     </script>
 
     <script>
-        
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js').then((reg) => {
-        console.log('ServiceWorker registration successful with scope: ', reg.scope);
-    }).catch((err) => {
-        console.log('ServiceWorker registration failed: ', err);
-    });
-}
-function triggerInstallPWA(e) {
-    if(e) e.preventDefault();
-    if (window.deferredPrompt) {
-        window.deferredPrompt.prompt();
-        window.deferredPrompt.userChoice.then((choiceResult) => {
-            window.deferredPrompt = null;
-        });
-    } else {
-        if (typeof window.showToast === 'function') {
-            window.showToast('Buka aplikasi ini melalui Google Chrome (atau browser Chromium) untuk menginstallnya sebagai PWA', 'warning');
-        } else {
-            alert('Buka aplikasi ini melalui Google Chrome (atau browser Chromium) untuk menginstallnya sebagai PWA');
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js').then((reg) => {
+                console.log('ServiceWorker registration successful with scope: ', reg.scope);
+            }).catch((err) => {
+                console.log('ServiceWorker registration failed: ', err);
+            });
         }
-    }
-}
+        function triggerInstallPWA(e) {
+            if (e) e.preventDefault();
+            if (window.deferredPrompt) {
+                window.deferredPrompt.prompt();
+                window.deferredPrompt.userChoice.then((choiceResult) => {
+                    window.deferredPrompt = null;
+                });
+            } else {
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Buka aplikasi ini melalui Google Chrome (atau browser Chromium) untuk menginstallnya sebagai PWA', 'warning');
+                } else {
+                    alert('Buka aplikasi ini melalui Google Chrome (atau browser Chromium) untuk menginstallnya sebagai PWA');
+                }
+            }
+        }
     </script>
 
 

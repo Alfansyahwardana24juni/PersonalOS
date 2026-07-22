@@ -1,4 +1,6 @@
+const fs = require('fs');
 
+const jsContent = `
 // New Dashboard logic using Dexie OS_DB and Chart.js
 
 let charts = {};
@@ -16,7 +18,6 @@ async function initDashboard() {
     await loadFinancialStats();
     await loadProductivityStats();
     await loadUpcoming();
-    await loadTrendCharts();
 }
 
 function setGreeting() {
@@ -33,7 +34,7 @@ function setGreeting() {
 
     const greetEl = document.getElementById('dash-greeting');
     const dateEl = document.getElementById('dash-date');
-    if(greetEl) greetEl.textContent = `${greeting}, ${name} 👋`;
+    if(greetEl) greetEl.textContent = \`\${greeting}, \${name} 👋\`;
     if(dateEl) dateEl.textContent = dateStr;
 }
 
@@ -86,7 +87,7 @@ async function loadFinancialStats() {
     const gTxt = document.getElementById('dash-goal-text');
     const gBar = document.getElementById('dash-goal-bar');
     if(gPct) gPct.textContent = pct + '%';
-    if(gTxt) gTxt.textContent = `${fmt(goalCurrent)} / ${fmt(goalTarget)}`;
+    if(gTxt) gTxt.textContent = \`\${fmt(goalCurrent)} / \${fmt(goalTarget)}\`;
     if(gBar) gBar.style.width = pct + '%';
 
     // Init Charts
@@ -168,17 +169,17 @@ async function loadProductivityStats() {
             todayTasks.forEach(t => {
                 const li = document.createElement('li');
                 li.className = 'p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer rounded-xl dark:hover:bg-[#18181b] border border-transparent hover:border-gray-100 dark:hover:border-[#27272a]';
-                li.innerHTML = `
+                li.innerHTML = \`
                     <div class="pt-0.5">
-                        <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}', this.checked)" class="w-4 h-4 text-brand bg-white border-gray-300 rounded focus:ring-brand focus:ring-2 cursor-pointer transition-all">
+                        <input type="checkbox" \${t.completed ? 'checked' : ''} onchange="toggleTask('\${t.id}', this.checked)" class="w-4 h-4 text-brand bg-white border-gray-300 rounded focus:ring-brand focus:ring-2 cursor-pointer transition-all">
                     </div>
                     <div class="ml-3 flex-1">
-                        <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">${t.title}</p>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">\${t.title}</p>
                         <div class="flex items-center gap-3 mt-1.5">
-                            ${t.priority ? `<span class="inline-flex items-center rounded-md bg-brand/10 px-2 py-0.5 text-[10px] font-bold text-brand">${t.priority}</span>` : ''}
+                            \${t.priority ? \`<span class="inline-flex items-center rounded-md bg-brand/10 px-2 py-0.5 text-[10px] font-bold text-brand">\${t.priority}</span>\` : ''}
                         </div>
                     </div>
-                `;
+                \`;
                 taskContainer.appendChild(li);
             });
         }
@@ -197,7 +198,7 @@ async function loadProductivityStats() {
     if(cEl) cEl.textContent = completed;
     if(pEl) pEl.textContent = pending;
     if(pctEl) pctEl.textContent = pct + '%';
-    if(ringEl) ringEl.setAttribute('stroke-dasharray', `${pct}, 100`);
+    if(ringEl) ringEl.setAttribute('stroke-dasharray', \`\${pct}, 100\`);
 }
 
 async function loadUpcoming() {
@@ -220,15 +221,15 @@ async function loadUpcoming() {
             cont.innerHTML = '<div class="text-center text-sm text-gray-400">No upcoming items</div>';
         } else {
             upcoming.forEach(u => {
-                cont.innerHTML += `
+                cont.innerHTML += \`
                     <li class="flex justify-between items-center p-3 bg-gray-50 rounded-xl dark:bg-[#09090b]">
                         <div>
-                            <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">${u.title}</p>
-                            <p class="text-[10px] text-gray-500 font-medium mt-0.5">${u.date}</p>
+                            <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">\${u.title}</p>
+                            <p class="text-[10px] text-gray-500 font-medium mt-0.5">\${u.date}</p>
                         </div>
-                        <span class="text-[10px] font-bold px-2 py-1 rounded-md ${u.type === 'Event' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' : 'bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400'}">${u.type}</span>
+                        <span class="text-[10px] font-bold px-2 py-1 rounded-md \${u.type === 'Event' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' : 'bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400'}">\${u.type}</span>
                     </li>
-                `;
+                \`;
             });
         }
     }
@@ -243,91 +244,7 @@ async function toggleTask(id, checked) {
         loadProductivityStats();
     }
 }
+`;
 
-
-async function loadTrendCharts() {
-    if (typeof OS_DB === 'undefined' || typeof Chart === 'undefined') return;
-    
-    const tasks = await OS_DB.getTasks();
-    const finances = await OS_DB.getFinances();
-
-    // Prepare last 7 days array
-    const last7Days = [];
-    const today = new Date();
-    for (let i = 6; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
-        last7Days.push(d.toISOString().slice(0, 10)); // YYYY-MM-DD
-    }
-    
-    const displayLabels = last7Days.map(d => {
-        const dateObj = new Date(d);
-        return dateObj.toLocaleDateString('en-US', { weekday: 'short' });
-    });
-
-    // 1. Task Velocity
-    const taskData = last7Days.map(dateStr => {
-        return tasks.filter(t => t.completed && t.updatedAt && t.updatedAt.startsWith(dateStr)).length;
-    });
-
-    const vCtx = document.getElementById('chart-task-velocity');
-    if (vCtx) {
-        if (charts['velocity']) charts['velocity'].destroy();
-        charts['velocity'] = new Chart(vCtx, {
-            type: 'line',
-            data: {
-                labels: displayLabels,
-                datasets: [{
-                    label: 'Tasks Done',
-                    data: taskData,
-                    borderColor: '#8B5CF6',
-                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
-                }
-            }
-        });
-    }
-
-    // 2. Daily Expenses
-    const expData = last7Days.map(dateStr => {
-        return finances.filter(f => f.type === 'expense' && f.date && f.date.startsWith(dateStr))
-                       .reduce((sum, f) => sum + (parseFloat(f.amount) || 0), 0);
-    });
-
-    const dxCtx = document.getElementById('chart-daily-expense');
-    if (dxCtx) {
-        if (charts['daily-exp']) charts['daily-exp'].destroy();
-        charts['daily-exp'] = new Chart(dxCtx, {
-            type: 'bar',
-            data: {
-                labels: displayLabels,
-                datasets: [{
-                    label: 'Expense',
-                    data: expData,
-                    backgroundColor: '#EF4444',
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { display: false, beginAtZero: true }
-                }
-            }
-        });
-    }
-}
-
-// Call loadTrendCharts at the end of initDashboard
+fs.writeFileSync('D:/PersonalOS/js/dashboard_app.js', jsContent);
+console.log('Written new dashboard_app.js');
