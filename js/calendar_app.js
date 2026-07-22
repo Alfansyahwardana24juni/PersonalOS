@@ -1,5 +1,35 @@
 // --- Global State ---
-let events = JSON.parse(localStorage.getItem('calendar_events')) || [];
+let calendar_events = JSON.parse(localStorage.getItem('calendar_events')) || [];
+let tasks_board = JSON.parse(localStorage.getItem('tasks_board_v2')) || { columns: [] };
+let events = [];
+function loadAllEvents() {
+    calendar_events = JSON.parse(localStorage.getItem('calendar_events')) || [];
+    tasks_board = JSON.parse(localStorage.getItem('tasks_board_v2')) || { columns: [] };
+    events = [...calendar_events];
+    if (tasks_board && tasks_board.columns) {
+        tasks_board.columns.forEach(col => {
+            if (col.tasks) {
+                col.tasks.forEach(t => {
+                    if (t.deadline) {
+                        // Transform task into event format for calendar display
+                        events.push({
+                            id: t.id,
+                            title: t.title,
+                            date: t.deadline,
+                            timeStart: t.timeStart || '',
+                            timeEnd: t.timeEnd || '',
+                            category: 'Task',
+                            type: 'Tugas',
+                            isTask: true,
+                            colId: col.id
+                        });
+                    }
+                });
+            }
+        });
+    }
+}
+loadAllEvents();
 let currentDate = new Date(); // The month being viewed
 let selectedDate = new Date(); // The day selected in the agenda
 let currentView = 'month';
@@ -161,7 +191,11 @@ function renderView() {
 }
 
 function getEventsForDate(dateStr) {
-    return events.filter(e => e.date === dateStr).sort((a, b) => a.time.localeCompare(b.time));
+    return events.filter(e => e.date === dateStr).sort((a, b) => {
+        const timeA = a.timeStart || a.time || '';
+        const timeB = b.timeStart || b.time || '';
+        return timeA.localeCompare(timeB);
+    });
 }
 
 function renderMonthView() {
@@ -258,7 +292,7 @@ function renderWeekView() {
         let evtList = dayEvts.map(evt => {
             return `<div class="bg-white dark:bg-surface border border-border dark:border-[#27272a] p-2 rounded shadow-sm text-xs cursor-pointer hover:border-brand" onclick="openEditModal('${evt.id}')">
                 <div class="font-bold text-primary truncate">${evt.title}</div>
-                <div class="text-[10px] text-gray-500">${evt.time}</div>
+                <div class="text-[10px] text-gray-500">${evt.timeStart || evt.time || ''}</div>
             </div>`;
         }).join('');
         
@@ -291,7 +325,7 @@ function renderDayView() {
         dayEvts.forEach(evt => {
             html += `
             <div class="flex items-center p-4 border-b border-border dark:border-[#27272a] hover:bg-gray-50 dark:hover:bg-[#18181b] cursor-pointer" onclick="openEditModal('${evt.id}')">
-                <div class="w-20 text-sm font-bold text-primary">${evt.time}</div>
+                <div class="w-20 text-sm font-bold text-primary">${evt.timeStart || evt.time || ''}</div>
                 <div class="w-3 h-3 rounded-full ${evt.type === 'Tugas' ? 'bg-gray-400' : 'bg-brand'} mx-4"></div>
                 <div class="flex-1">
                     <h4 class="text-base font-semibold text-primary">${evt.title}</h4>
@@ -340,7 +374,7 @@ function openAgendaPanel(dateStr) {
                 <div class="flex items-start justify-between ${!isTask ? 'pl-2' : ''}">
                     <div>
                         <h4 class="text-sm font-semibold text-primary ${isTask ? 'line-clamp-2' : ''}">${evt.title}</h4>
-                        <p class="text-xs text-gray-500 mt-1 dark:text-gray-400">${evt.time} ${evt.category ? '• ' + evt.category : ''}</p>
+                        <p class="text-xs text-gray-500 mt-1 dark:text-gray-400">${evt.timeStart || evt.time || ''} ${evt.timeEnd ? '- ' + evt.timeEnd : ''} ${evt.category ? '• ' + evt.category : ''}</p>
                     </div>
                     <span class="inline-flex items-center rounded-md bg-gray-100 px-2 py-0.5 text-[9px] font-medium text-gray-600 dark:bg-[#18181b] dark:text-gray-400 shrink-0 ml-2 border border-border dark:border-[#3f3f46]">${evt.type}</span>
                 </div>
@@ -368,7 +402,8 @@ function openAddModal() {
     document.getElementById('modal-title').innerText = "Tambah Baru";
     document.getElementById('add-modal-input').value = '';
     document.getElementById('add-modal-date').value = formatDate(selectedDate);
-    document.getElementById('add-modal-time').value = '10:00';
+    document.getElementById('add-modal-time-start').value = '10:00';
+    document.getElementById('add-modal-time-end').value = '11:00';
     document.getElementById('add-modal-category').value = '';
     document.getElementById('add-modal-type').value = 'Acara';
     
@@ -384,7 +419,8 @@ function openEditModal(id) {
     document.getElementById('modal-title').innerText = "Edit " + evt.type;
     document.getElementById('add-modal-input').value = evt.title;
     document.getElementById('add-modal-date').value = evt.date;
-    document.getElementById('add-modal-time').value = evt.time;
+    document.getElementById('add-modal-time-start').value = evt.timeStart || evt.time || '';
+    document.getElementById('add-modal-time-end').value = evt.timeEnd || '';
     document.getElementById('add-modal-category').value = evt.category || '';
     document.getElementById('add-modal-type').value = evt.type || 'Acara';
     
@@ -416,7 +452,8 @@ function closeAddModal() {
 function saveEvent() {
     const title = document.getElementById('add-modal-input').value.trim();
     const date = document.getElementById('add-modal-date').value;
-    const time = document.getElementById('add-modal-time').value;
+    const timeStart = document.getElementById('add-modal-time-start').value;
+    const timeEnd = document.getElementById('add-modal-time-end').value;
     const category = document.getElementById('add-modal-category').value.trim();
     const type = document.getElementById('add-modal-type').value;
     
@@ -427,20 +464,62 @@ function saveEvent() {
     
     if (currentEditId) {
         // Edit existing
-        const idx = events.findIndex(e => e.id === currentEditId);
-        if (idx !== -1) {
-            events[idx] = { id: currentEditId, title, date, time, category, type };
+        const existingEvt = events.find(e => e.id === currentEditId);
+        if (existingEvt && existingEvt.isTask) {
+            // Edit task
+            tasks_board.columns.forEach(col => {
+                const idx = col.tasks.findIndex(t => t.id === currentEditId);
+                if (idx !== -1) {
+                    if (type === 'Tugas') {
+                        col.tasks[idx].title = title;
+                        col.tasks[idx].deadline = date;
+                        col.tasks[idx].timeStart = timeStart;
+                        col.tasks[idx].timeEnd = timeEnd;
+                    } else {
+                        // Converted from Task to Event
+                        col.tasks.splice(idx, 1);
+                        calendar_events.push({
+                            id: currentEditId, title, date, timeStart, timeEnd, category, type
+                        });
+                    }
+                }
+            });
+        } else {
+            // Edit event
+            const idx = calendar_events.findIndex(e => e.id === currentEditId);
+            if (idx !== -1) {
+                if (type !== 'Tugas') {
+                    calendar_events[idx] = { id: currentEditId, title, date, timeStart, timeEnd, category, type };
+                } else {
+                    // Converted from Event to Task
+                    calendar_events.splice(idx, 1);
+                    if (!tasks_board.columns[0]) tasks_board.columns.push({id:'col-todo', title:'Todo', tasks:[]});
+                    tasks_board.columns[0].tasks.push({
+                        id: currentEditId, title: title, priority: 'Normal', status: 'Todo', deadline: date, timeStart, timeEnd, desc: '', subtasks: []
+                    });
+                }
+            }
         }
     } else {
         // Add new
-        events.push({
-            id: generateId(),
-            title, date, time, category, type
-        });
+        if (type === 'Tugas') {
+            if (!tasks_board.columns[0]) tasks_board.columns.push({id:'col-todo', title:'Todo', tasks:[]});
+            tasks_board.columns[0].tasks.push({
+                id: generateId(), title: title, priority: 'Normal', status: 'Todo', deadline: date, timeStart, timeEnd, desc: '', subtasks: []
+            });
+        } else {
+            calendar_events.push({
+                id: generateId(),
+                title, date, timeStart, timeEnd, category, type
+            });
+        }
     }
     
-    localStorage.setItem('calendar_events', JSON.stringify(events));
+    localStorage.setItem('calendar_events', JSON.stringify(calendar_events));
+    localStorage.setItem('tasks_board_v2', JSON.stringify(tasks_board));
+    
     closeAddModal();
+    loadAllEvents(); // Reload everything
     
     // Refresh UI
     selectedDate = parseDateStr(date);
@@ -453,11 +532,20 @@ function saveEvent() {
 
 function deleteEvent() {
     if (!currentEditId) return;
+    const existingEvt = events.find(e => e.id === currentEditId);
+    if (existingEvt && existingEvt.isTask) {
+        tasks_board.columns.forEach(col => {
+            col.tasks = col.tasks.filter(t => t.id !== currentEditId);
+        });
+    } else {
+        calendar_events = calendar_events.filter(e => e.id !== currentEditId);
+    }
     
-    events = events.filter(e => e.id !== currentEditId);
-    localStorage.setItem('calendar_events', JSON.stringify(events));
+    localStorage.setItem('calendar_events', JSON.stringify(calendar_events));
+    localStorage.setItem('tasks_board_v2', JSON.stringify(tasks_board));
     
     closeAddModal();
+    loadAllEvents();
     renderView();
     openAgendaPanel(formatDate(selectedDate));
     

@@ -33,6 +33,9 @@
         </div>
     </div>
 
+    
+    
+
     <!-- Quick Add Modal -->
     <div id="quick-add-modal" class="fixed inset-0 z-[9998] hidden">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeQuickAdd()"></div>
@@ -291,10 +294,11 @@
             else if (type === 'income') options = ['Gaji', 'Bonus', 'Investasi', 'Lainnya'];
             
             options.forEach(opt => {
-                catSelect.innerHTML += \`<option value="\${opt}">\${opt}</option>\`;
+                catSelect.innerHTML += `<option value="${opt}">${opt}</option>`;
             });
             catSelect.value = options[0];
         }
+    };
 
     window.saveQuickAdd = function() {
         const title = (document.getElementById('qa-title') || {}).value || '';
@@ -391,7 +395,7 @@
     // Global Keyboard Shortcut: Ctrl+K overrides main.js
     // -----------------------------------------------
     document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key.toLowerCase() === 'k') {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
             e.preventDefault();
             e.stopPropagation();
             const overlay = document.getElementById('cmd-palette-overlay');

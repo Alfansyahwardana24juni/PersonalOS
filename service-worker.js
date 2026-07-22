@@ -1,4 +1,4 @@
-const CACHE_NAME = 'personalos-cache-v14';
+const CACHE_NAME = 'personalos-cache-v1784686548181';
 const urlsToCache = [
   './',
   './index.html',

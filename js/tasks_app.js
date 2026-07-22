@@ -26,30 +26,55 @@ function generateId() {
     return 'task_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
 
-function saveData() {
-    localStorage.setItem('tasks_board_v2', JSON.stringify(boardData));
+async function saveData() {
+    try {
+        const colsMeta = boardData.columns.map(c => ({ id: c.id, title: c.title, color: c.color }));
+        localStorage.setItem('task_columns', JSON.stringify(colsMeta));
+
+        let allTasks = [];
+        boardData.columns.forEach(col => {
+            col.tasks.forEach(t => {
+                t.colId = col.id;
+                t.status = col.title;
+                allTasks.push(t);
+            });
+        });
+
+        await db.tasks.clear();
+        await db.tasks.bulkPut(allTasks);
+    } catch(e) {
+        console.error('Error saving tasks to IndexedDB', e);
+    }
 }
 
-function loadData() {
-    const saved = localStorage.getItem('tasks_board_v2');
-    if (saved) {
-        try {
-            boardData = JSON.parse(saved);
-        } catch(e) {
-            console.warn('Failed to parse tasks data, using defaults');
+async function loadData() {
+    try {
+        const savedCols = localStorage.getItem('task_columns');
+        if (savedCols) {
+            boardData.columns = JSON.parse(savedCols);
+            boardData.columns.forEach(c => c.tasks = []);
+        } else {
+            // Default columns
+            boardData.columns = [
+                { id: 'col_1', title: 'Akan Dikerjakan', color: 'bg-gray-400', tasks: [] },
+                { id: 'col_2', title: 'Sedang Dikerjakan', color: 'bg-warning', tasks: [] },
+                { id: 'col_3', title: 'Selesai', color: 'bg-success', tasks: [] }
+            ];
         }
-    } else {
-        // Default sample tasks
-        boardData.columns[0].tasks = [
-            { id: generateId(), title: 'Review Dokumen Proyek Baru', priority: 'Rendah', status: 'Todo', deadline: '', desc: '', subtasks: [] },
-        ];
-        boardData.columns[1].tasks = [
-            { id: generateId(), title: 'Selesaikan Desain UI untuk Dasbor', priority: 'Tinggi', status: 'In Progress', deadline: '', desc: 'Membuat tampilan yang modern dan responsif untuk halaman dasbor.', subtasks: [
-                { id: generateId(), text: 'Buat HTML untuk halaman Index', done: true },
-                { id: generateId(), text: 'Desain halaman Tasks & Panel', done: false }
-            ] },
-        ];
-        saveData();
+
+        const dbTasks = await db.tasks.toArray(); // Assuming db is global from db.js
+        if (dbTasks.length > 0) {
+            dbTasks.forEach(task => {
+                let col = boardData.columns.find(c => c.id === task.colId);
+                if (!col && task.status) col = boardData.columns.find(c => c.title === task.status);
+                if (!col) col = boardData.columns[0];
+                if (col) col.tasks.push(task);
+            });
+        }
+        
+        renderBoard();
+    } catch(e) {
+        console.error('Error loading tasks from IndexedDB', e);
     }
 }
 
@@ -655,3 +680,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// --- NLP Quick Add ---
+function handleQuickAddTask() {
+    const input = document.getElementById('quick-add-task');
+    const text = input.value.trim();
+    if (!text) return;
+    
+    let priority = 'Normal';
+    let cleanText = text;
+    if (cleanText.match(/!p1/i)) priority = 'Tinggi';
+    else if (cleanText.match(/!p2/i)) priority = 'Sedang';
+    else if (cleanText.match(/!p3/i)) priority = 'Rendah';
+    cleanText = cleanText.replace(/!p[1-3]/i, '').trim();
+    
+    let deadline = '';
+    let timeStart = '';
+    
+    const today = new Date();
+    if (cleanText.match(/besok|esok/i)) {
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const year = tomorrow.getFullYear();
+        const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const day = String(tomorrow.getDate()).padStart(2, '0');
+        deadline = `${year}-${month}-${day}`;
+        cleanText = cleanText.replace(/besok|esok/i, '').trim();
+    } else if (cleanText.match(/hari ini|today/i)) {
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        deadline = `${year}-${month}-${day}`;
+        cleanText = cleanText.replace(/hari ini|today/i, '').trim();
+    }
+    
+    const timeMatch = cleanText.match(/\b([01]?\d|2[0-3]):([0-5]\d)\b/);
+    if (timeMatch) {
+        timeStart = timeMatch[0];
+        cleanText = cleanText.replace(timeMatch[0], '').trim();
+    }
+    
+    const projMatch = cleanText.match(/#(\w+)/);
+    if (projMatch) {
+        cleanText = cleanText.replace(projMatch[0], '').trim();
+    }
+    
+    const newTask = {
+        id: generateId(),
+        title: cleanText,
+        priority: priority,
+        status: 'Todo',
+        deadline: deadline,
+        timeStart: timeStart,
+        timeEnd: '',
+        desc: '',
+        subtasks: []
+    };
+    
+    if (boardData.columns.length > 0) {
+        boardData.columns[0].tasks.unshift(newTask);
+        saveData();
+        renderBoard();
+        if(typeof renderList === 'function') renderList();
+    }
+    
+    input.value = '';
+    if(window.showToast) window.showToast('Tugas baru ditambahkan (NLP)', 'success');
+}

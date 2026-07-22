@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="css/style.css?v=5"> <!-- Dark Mode Init -->
     <script> if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); } </script>
     <link rel="manifest" href="manifest.json">
+
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xpxc0dqe5x");
+</script>
 </head>
 
 <body
@@ -77,6 +85,7 @@
                             d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg> Keuangan </a>
+                
                 <div class="my-4 border-t border-border dark:border-[#27272a]"></div>
                 <a href="#" onclick="triggerInstallPWA(event)"
                     class="flex items-center px-3 py-2 bg-brand/10 text-brand hover:bg-brand/20 rounded-md text-sm font-semibold transition-colors group dark:bg-brand/20 dark:text-brand dark:hover:bg-brand/30">
@@ -99,6 +108,14 @@
                 <h1 class="text-xl font-bold text-primary">Dashboard</h1>
             </div> <!-- Header Right Actions -->
             <div class="flex items-center space-x-4 ml-4">
+
+<button id="topbar-search-btn" onclick="if(typeof window.openCommandPalette === 'function') window.openCommandPalette()" class="relative p-2 text-gray-400 hover:text-primary transition-colors bg-gray-100 dark:bg-[#27272a] rounded-full hidden md:flex items-center gap-2" title="Cari (Ctrl+K)">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+    <span class="text-[10px] font-bold text-gray-500 dark:text-gray-400 pr-1">Ctrl K</span>
+</button>
+<button onclick="if(typeof window.openCommandPalette === 'function') window.openCommandPalette()" class="md:hidden relative p-2 text-gray-400 hover:text-primary transition-colors" title="Cari">
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+</button>
                 <button onclick="toggleDarkMode()"
                     class="relative p-2 text-gray-400 hover:text-primary transition-colors" title="Ganti Tema">
                     <!-- Sun icon for dark mode (to switch to light) -->
@@ -408,8 +425,10 @@
                     </path>
                 </svg> <span class="text-[10px] font-medium">Keuangan</span> </a> </nav>
     </main> <!-- Custom JS -->
-    <script src="js/main.js?v=1784612033129"></script>
+    <script src="js/main.js?v=1784683538836"></script>
     <script src="js/crud.js"></script>
+    <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+    <script src="js/db.js"></script>
     <script src="js/dashboard_app.js"></script>
     
 
@@ -474,8 +493,9 @@ function triggerInstallPWA(e) {
     }
 }
     </script>
-<script src="js/command_palette.js"></script>
-<script src="js/command_palette.js"></script>
+
+
+    <script src="js/command_palette.js"></script>
 </body>
 
 
