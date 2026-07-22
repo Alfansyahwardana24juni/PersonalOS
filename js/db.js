@@ -26,6 +26,59 @@ function generateUUID() {
 
 // Global DB Helper Functions
 const OS_DB = {
+    
+    // --- TASKS ---
+    async addTask(data) {
+        if (!data.id) data.id = generateUUID();
+        data.createdAt = data.createdAt || new Date().toISOString();
+        data.updatedAt = new Date().toISOString();
+        await db.tasks.put(data);
+        return data;
+    },
+    async getTasks() {
+        return await db.tasks.toArray();
+    },
+    async updateTask(id, data) {
+        data.updatedAt = new Date().toISOString();
+        return await db.tasks.update(id, data);
+    },
+    async deleteTask(id) {
+        return await db.tasks.delete(id);
+    },
+
+    // --- NOTES ---
+    async addNote(data) {
+        if (!data.id) data.id = generateUUID();
+        data.createdAt = data.createdAt || new Date().toISOString();
+        data.updatedAt = new Date().toISOString();
+        await db.notes.put(data);
+        return data;
+    },
+    async getNotes() {
+        return await db.notes.toArray();
+    },
+    async updateNote(id, data) {
+        data.updatedAt = new Date().toISOString();
+        return await db.notes.update(id, data);
+    },
+    async deleteNote(id) {
+        return await db.notes.delete(id);
+    },
+
+    // --- FINANCES ---
+    async addFinance(data) {
+        if (!data.id) data.id = generateUUID();
+        data.createdAt = data.createdAt || new Date().toISOString();
+        await db.finances.put(data);
+        return data;
+    },
+    async getFinances() {
+        return await db.finances.toArray();
+    },
+    async deleteFinance(id) {
+        return await db.finances.delete(id);
+    },
+
     // --- PROJECTS ---
     async addProject(data) {
         const id = generateUUID();
@@ -46,6 +99,24 @@ const OS_DB = {
     },
     async deleteProject(id) {
         return await db.projects.delete(id);
+    },
+
+    
+    // --- EVENTS (Calendar) ---
+    async addEvent(data) {
+        if (!data.id) data.id = generateUUID();
+        if (!data.createdAt) data.createdAt = new Date().toISOString();
+        await db.events.put(data);
+        return data;
+    },
+    async getEvents() {
+        return await db.events.toArray();
+    },
+    async updateEvent(id, data) {
+        await db.events.update(id, data);
+    },
+    async deleteEvent(id) {
+        await db.events.delete(id);
     },
 
     // Migrasi data dari LocalStorage ke IndexedDB (Hanya dijalankan sekali)

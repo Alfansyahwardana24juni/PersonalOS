@@ -1,4 +1,6 @@
+const fs = require('fs');
 
+const newCalendarApp = `
 // js/calendar_app.js
 
 let currentView = 'month'; // 'month', 'week', 'day'
@@ -74,7 +76,7 @@ function formatDate(dateObj) {
     const y = dateObj.getFullYear();
     const m = String(dateObj.getMonth() + 1).padStart(2, '0');
     const d = String(dateObj.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
+    return \`\${y}-\${m}-\${d}\`;
 }
 
 function parseDateStr(dateStr) {
@@ -134,7 +136,7 @@ function updateHeaderTitle() {
     const m = currentDate.getMonth();
     
     if(currentView === 'month') {
-        document.getElementById('calendar-header-title').innerText = `${monthNames[m]} ${y}`;
+        document.getElementById('calendar-header-title').innerText = \`\${monthNames[m]} \${y}\`;
     } else if(currentView === 'week') {
         // Find start of week (Sunday)
         const day = currentDate.getDay();
@@ -144,12 +146,12 @@ function updateHeaderTitle() {
         end.setDate(start.getDate() + 6);
         
         if(start.getMonth() === end.getMonth()) {
-            document.getElementById('calendar-header-title').innerText = `${start.getDate()} - ${end.getDate()} ${monthNames[start.getMonth()]} ${y}`;
+            document.getElementById('calendar-header-title').innerText = \`\${start.getDate()} - \${end.getDate()} \${monthNames[start.getMonth()]} \${y}\`;
         } else {
-            document.getElementById('calendar-header-title').innerText = `${start.getDate()} ${monthNames[start.getMonth()].substring(0,3)} - ${end.getDate()} ${monthNames[end.getMonth()].substring(0,3)} ${y}`;
+            document.getElementById('calendar-header-title').innerText = \`\${start.getDate()} \${monthNames[start.getMonth()].substring(0,3)} - \${end.getDate()} \${monthNames[end.getMonth()].substring(0,3)} \${y}\`;
         }
     } else {
-        document.getElementById('calendar-header-title').innerText = `${currentDate.getDate()} ${monthNames[m]} ${y}`;
+        document.getElementById('calendar-header-title').innerText = \`\${currentDate.getDate()} \${monthNames[m]} \${y}\`;
     }
 }
 
@@ -209,7 +211,7 @@ function renderMonthView() {
         const isSelected = dateStr === selStr;
         
         const cell = document.createElement('div');
-        cell.className = `bg-surface min-h-[100px] p-1.5 sm:p-2 cursor-pointer transition-colors relative group ${isSelected ? 'ring-2 ring-inset ring-primary' : 'hover:bg-gray-50 dark:hover:bg-[#18181b]'}`;
+        cell.className = \`bg-surface min-h-[100px] p-1.5 sm:p-2 cursor-pointer transition-colors relative group \${isSelected ? 'ring-2 ring-inset ring-primary' : 'hover:bg-gray-50 dark:hover:bg-[#18181b]'}\`;
         cell.onclick = () => {
             selectedDate = dateObj;
             renderView(); // re-render to show selection
@@ -221,7 +223,7 @@ function renderMonthView() {
         numContainer.className = 'flex justify-between items-start';
         
         const numSpan = document.createElement('span');
-        numSpan.className = `inline-flex items-center justify-center w-7 h-7 text-xs sm:text-sm font-semibold rounded-full ${isToday ? 'bg-primary text-white dark:bg-[#FAFAFA] dark:text-[#09090b]' : 'text-primary dark:text-gray-300'}`;
+        numSpan.className = \`inline-flex items-center justify-center w-7 h-7 text-xs sm:text-sm font-semibold rounded-full \${isToday ? 'bg-primary text-white dark:bg-[#FAFAFA] dark:text-[#09090b]' : 'text-primary dark:text-gray-300'}\`;
         numSpan.innerText = d;
         numContainer.appendChild(numSpan);
         
@@ -248,7 +250,7 @@ function renderMonthView() {
             else if(ev.type === 'Acara') bgClass = 'bg-brand/10 text-brand border border-brand/20';
             else if(ev.type === 'Pengingat') bgClass = 'bg-warning/10 text-warning border border-warning/20';
             
-            evEl.className = `text-[10px] sm:text-xs truncate px-1.5 py-0.5 rounded-md font-medium ${bgClass}`;
+            evEl.className = \`text-[10px] sm:text-xs truncate px-1.5 py-0.5 rounded-md font-medium \${bgClass}\`;
             evEl.innerText = ev.title;
             eventContainer.appendChild(evEl);
         });
@@ -256,7 +258,7 @@ function renderMonthView() {
         if (dayEvents.length > 3) {
             const moreEl = document.createElement('div');
             moreEl.className = 'text-[10px] text-gray-400 font-medium px-1.5';
-            moreEl.innerText = `+${dayEvents.length - 3} lainnya`;
+            moreEl.innerText = \`+\${dayEvents.length - 3} lainnya\`;
             eventContainer.appendChild(moreEl);
         }
         
@@ -296,7 +298,7 @@ function renderWeekView() {
         const isSelected = dateStr === selStr;
         
         const cell = document.createElement('div');
-        cell.className = `bg-surface min-h-[300px] p-2 cursor-pointer transition-colors relative ${isSelected ? 'ring-2 ring-inset ring-primary' : 'hover:bg-gray-50 dark:hover:bg-[#18181b]'}`;
+        cell.className = \`bg-surface min-h-[300px] p-2 cursor-pointer transition-colors relative \${isSelected ? 'ring-2 ring-inset ring-primary' : 'hover:bg-gray-50 dark:hover:bg-[#18181b]'}\`;
         cell.onclick = () => {
             selectedDate = loopDate;
             renderView();
@@ -304,7 +306,7 @@ function renderWeekView() {
         };
         
         const numSpan = document.createElement('span');
-        numSpan.className = `inline-flex items-center justify-center w-8 h-8 text-sm font-semibold rounded-full ${isToday ? 'bg-primary text-white dark:bg-[#FAFAFA] dark:text-[#09090b]' : 'text-primary dark:text-gray-300'}`;
+        numSpan.className = \`inline-flex items-center justify-center w-8 h-8 text-sm font-semibold rounded-full \${isToday ? 'bg-primary text-white dark:bg-[#FAFAFA] dark:text-[#09090b]' : 'text-primary dark:text-gray-300'}\`;
         numSpan.innerText = loopDate.getDate();
         cell.appendChild(numSpan);
         
@@ -317,7 +319,7 @@ function renderWeekView() {
             if(ev.type === 'Tugas') bgClass = 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800';
             else if(ev.type === 'Acara') bgClass = 'bg-brand/10 text-brand border border-brand/20';
             
-            evEl.className = `text-xs px-2 py-1 rounded-md font-medium leading-tight ${bgClass}`;
+            evEl.className = \`text-xs px-2 py-1 rounded-md font-medium leading-tight \${bgClass}\`;
             evEl.innerText = ev.title;
             eventContainer.appendChild(evEl);
         });
@@ -357,16 +359,16 @@ function renderDayView() {
             if(ev.type === 'Tugas') borderCls = 'border-l-blue-500';
             else if(ev.type === 'Acara') borderCls = 'border-l-brand';
             
-            item.className = `p-4 rounded-xl border border-border border-l-4 ${borderCls} bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 dark:bg-[#09090b] dark:border-[#27272a]`;
-            item.innerHTML = `
+            item.className = \`p-4 rounded-xl border border-border border-l-4 \${borderCls} bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 dark:bg-[#09090b] dark:border-[#27272a]\`;
+            item.innerHTML = \`
                 <div>
-                    <h4 class="font-bold text-primary">${ev.title}</h4>
-                    <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">${ev.type}</p>
+                    <h4 class="font-bold text-primary">\${ev.title}</h4>
+                    <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">\${ev.type}</p>
                 </div>
                 <div class="text-right">
-                    ${ev.timeStart ? `<span class="text-sm font-medium text-primary bg-gray-100 px-2 py-1 rounded dark:bg-[#18181b]">${ev.timeStart} ${ev.timeEnd ? '- '+ev.timeEnd : ''}</span>` : ''}
+                    \${ev.timeStart ? \`<span class="text-sm font-medium text-primary bg-gray-100 px-2 py-1 rounded dark:bg-[#18181b]">\${ev.timeStart} \${ev.timeEnd ? '- '+ev.timeEnd : ''}</span>\` : ''}
                 </div>
-            `;
+            \`;
             list.appendChild(item);
         });
         cell.appendChild(list);
@@ -382,7 +384,7 @@ function openAgendaPanel(dateStr) {
     panel.classList.remove('translate-x-full');
     
     const dateObj = parseDateStr(dateStr);
-    document.getElementById('agenda-date-display').innerText = `${dateObj.getDate()} ${monthNames[dateObj.getMonth()].substring(0,3)} ${dateObj.getFullYear()}`;
+    document.getElementById('agenda-date-display').innerText = \`\${dateObj.getDate()} \${monthNames[dateObj.getMonth()].substring(0,3)} \${dateObj.getFullYear()}\`;
     document.getElementById('agenda-date-display').nextElementSibling.innerText = daysNamesIndo[dateObj.getDay()];
     
     const dayEvents = getEventsForDate(dateStr);
@@ -390,13 +392,13 @@ function openAgendaPanel(dateStr) {
     listEl.innerHTML = '';
     
     if (dayEvents.length === 0) {
-        listEl.innerHTML = `
+        listEl.innerHTML = \`
             <div class="flex flex-col items-center justify-center h-48 text-gray-400">
                 <svg class="w-12 h-12 mb-3 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 <p class="text-sm font-medium">Kosong</p>
                 <p class="text-xs mt-1">Tidak ada agenda</p>
             </div>
-        `;
+        \`;
         return;
     }
     
@@ -436,21 +438,21 @@ function openAgendaPanel(dateStr) {
             };
         }
         
-        item.innerHTML = `
+        item.innerHTML = \`
             <div class="flex items-start gap-3">
-                <div class="p-2 rounded-lg shrink-0 ${colorTheme}">
-                    ${icon}
+                <div class="p-2 rounded-lg shrink-0 \${colorTheme}">
+                    \${icon}
                 </div>
                 <div class="flex-1 min-w-0 pt-0.5">
-                    <h4 class="text-sm font-bold text-primary truncate leading-tight">${ev.title}</h4>
+                    <h4 class="text-sm font-bold text-primary truncate leading-tight">\${ev.title}</h4>
                     <div class="flex items-center gap-2 mt-2">
-                        ${ev.timeStart ? `<span class="text-xs font-semibold px-2 py-0.5 bg-gray-100 text-gray-600 rounded dark:bg-[#18181b] dark:text-gray-400">${ev.timeStart}${ev.timeEnd ? ' - '+ev.timeEnd : ''}</span>` : ''}
-                        ${ev.category ? `<span class="text-[10px] uppercase font-bold text-gray-400">${ev.category}</span>` : ''}
-                        ${isTask ? `<span class="text-[10px] uppercase font-bold text-gray-400">${ev.priority}</span>` : ''}
+                        \${ev.timeStart ? \`<span class="text-xs font-semibold px-2 py-0.5 bg-gray-100 text-gray-600 rounded dark:bg-[#18181b] dark:text-gray-400">\${ev.timeStart}\${ev.timeEnd ? ' - '+ev.timeEnd : ''}</span>\` : ''}
+                        \${ev.category ? \`<span class="text-[10px] uppercase font-bold text-gray-400">\${ev.category}</span>\` : ''}
+                        \${isTask ? \`<span class="text-[10px] uppercase font-bold text-gray-400">\${ev.priority}</span>\` : ''}
                     </div>
                 </div>
             </div>
-        `;
+        \`;
         
         listEl.appendChild(item);
     });
@@ -570,3 +572,7 @@ window.nextMonth = nextMonth;
 window.goToToday = goToToday;
 window.switchCalendarView = switchCalendarView;
 window.closeAgendaPanel = closeAgendaPanel;
+`;
+
+fs.writeFileSync('D:/PersonalOS/js/calendar_app.js', newCalendarApp);
+console.log('Migrated calendar_app.js to IndexedDB');
