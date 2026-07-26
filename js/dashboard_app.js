@@ -39,42 +39,121 @@ function setGreeting() {
 
 async function loadFinancialStats() {
     if (typeof OS_DB === 'undefined' || !OS_DB.getFinances) return;
-    const finances = await OS_DB.getFinances();
+    const dbFinances = await OS_DB.getFinances();
+    const lsFinances = JSON.parse(localStorage.getItem('finance_transactions'));
+    const finances = lsFinances ? lsFinances : dbFinances;
     
     let totalIncome = 0;
     let totalExpense = 0;
     
-    // For charts
+    // Setup date filters
+    const drInput = document.getElementById('filter-daterange');
+    
+    let now = new Date();
+    // Default to this month
+    let startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+    let endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+    let prevStartDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    let prevEndDate = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59);
+    let label = 'Income This Month';
+    let expLabel = 'Expense This Month';
+
+    // Check if daterangepicker actually has a user-selected value
+    if (drInput && drInput.value && drInput.value.includes(' - ')) {
+        const parts = drInput.value.split(' - ');
+        startDate = new Date(parts[0]);
+        startDate.setHours(0,0,0,0);
+        endDate = new Date(parts[1]);
+        endDate.setHours(23,59,59,999);
+        const duration = endDate.getTime() - startDate.getTime();
+        prevStartDate = new Date(startDate.getTime() - duration - 1);
+        prevEndDate = new Date(startDate.getTime() - 1);
+        label = 'Income (Selected)';
+        expLabel = 'Expense (Selected)';
+    }
+
     const monthlyIncome = {};
     const monthlyExpense = {};
     const catExpense = {};
+    
+    let allTimeIncome = 0;
+    let allTimeExpense = 0;
+    let prevIncome = 0;
+    let prevExpense = 0;
 
     finances.forEach(f => {
         const amt = parseFloat(f.amount) || 0;
         const d = new Date(f.date);
-        const monthKey = d.toLocaleString('default', { month: 'short' });
         
-        if (f.type === 'income') {
-            totalIncome += amt;
-            monthlyIncome[monthKey] = (monthlyIncome[monthKey] || 0) + amt;
-        } else if (f.type === 'expense') {
-            totalExpense += amt;
-            monthlyExpense[monthKey] = (monthlyExpense[monthKey] || 0) + amt;
-            catExpense[f.category || 'Other'] = (catExpense[f.category || 'Other'] || 0) + amt;
+        const isIncome = f.type === 'income' || f.type === 'pemasukan';
+        const isExpense = f.type === 'expense' || f.type === 'pengeluaran';
+        
+        if (isIncome) allTimeIncome += amt;
+        if (isExpense) allTimeExpense += amt;
+        
+        if (d >= startDate && d <= endDate) {
+            const rangeDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
+            const key = rangeDays <= 31 ? d.toISOString().slice(0,10) : d.toLocaleString('default', { month: 'short' });
+            
+            if (isIncome) {
+                totalIncome += amt;
+                monthlyIncome[key] = (monthlyIncome[key] || 0) + amt;
+            } else if (isExpense) {
+                totalExpense += amt;
+                monthlyExpense[key] = (monthlyExpense[key] || 0) + amt;
+                catExpense[f.category || 'Other'] = (catExpense[f.category || 'Other'] || 0) + amt;
+            }
+        }
+        
+        if (d >= prevStartDate && d <= prevEndDate) {
+            if (isIncome) prevIncome += amt;
+            if (isExpense) prevExpense += amt;
         }
     });
 
-    const totalWealth = totalIncome - totalExpense;
+    const totalWealth = allTimeIncome - allTimeExpense;
+    
+    const calcPct = (curr, prev) => {
+        if (prev === 0) return curr > 0 ? 100 : 0;
+        return Math.round(((curr - prev) / prev) * 100);
+    };
+    
+    const incPct = calcPct(totalIncome, prevIncome);
+    const expPct = calcPct(totalExpense, prevExpense);
     
     const wEl = document.getElementById('dash-total-wealth');
     const iEl = document.getElementById('dash-income');
     const eEl = document.getElementById('dash-expense');
+    const incLabelEl = document.getElementById('dash-income-label');
+    const expLabelEl = document.getElementById('dash-expense-label');
+    const incPctEl = document.getElementById('dash-income-pct');
+    const expPctEl = document.getElementById('dash-expense-pct');
     
     const fmt = (val) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(val);
     
     if(wEl) wEl.textContent = fmt(totalWealth);
-    if(iEl) iEl.textContent = fmt(totalIncome); // Simplified to all-time for demo, you can filter by current month
+    if(iEl) iEl.textContent = fmt(totalIncome);
     if(eEl) eEl.textContent = fmt(totalExpense);
+    if(incLabelEl) incLabelEl.textContent = label;
+    if(expLabelEl) expLabelEl.textContent = expLabel;
+    
+    const setBadge = (el, pct, isIncome) => {
+        if(!el) return;
+        el.className = 'text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-1';
+        let isGood = isIncome ? pct >= 0 : pct <= 0;
+        if (pct === 0) isGood = true;
+        
+        if (isGood) {
+            el.classList.add('bg-green-50', 'text-green-600', 'dark:bg-green-900/20', 'dark:text-green-400');
+            el.innerHTML = `<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg> ${Math.abs(pct)}%`;
+        } else {
+            el.classList.add('bg-red-50', 'text-red-600', 'dark:bg-red-900/20', 'dark:text-red-400');
+            el.innerHTML = `<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg> ${Math.abs(pct)}%`;
+        }
+    };
+    
+    setBadge(incPctEl, incPct, true);
+    setBadge(expPctEl, expPct, false);
 
     // Saving Goal
     const goalTarget = 20000000;
@@ -168,11 +247,17 @@ async function loadProductivityStats() {
             todayTasks.forEach(t => {
                 const li = document.createElement('li');
                 li.className = 'p-4 hover:bg-gray-50 transition-colors group flex items-start cursor-pointer rounded-xl dark:hover:bg-[#18181b] border border-transparent hover:border-gray-100 dark:hover:border-[#27272a]';
+                li.onclick = (e) => {
+                    if (e.target.tagName === 'INPUT') return;
+                    const cb = li.querySelector('input[type="checkbox"]');
+                    cb.checked = !cb.checked;
+                    toggleTask(t.id, cb.checked);
+                };
                 li.innerHTML = `
-                    <div class="pt-0.5">
-                        <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}', this.checked)" class="w-4 h-4 text-brand bg-white border-gray-300 rounded focus:ring-brand focus:ring-2 cursor-pointer transition-all">
+                    <div class="pt-0.5 pointer-events-none">
+                        <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask('${t.id}', this.checked)" class="w-5 h-5 text-brand bg-white border-gray-300 rounded focus:ring-brand focus:ring-2 cursor-pointer transition-all pointer-events-auto">
                     </div>
-                    <div class="ml-3 flex-1">
+                    <div class="ml-3 flex-1 select-none">
                         <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">${t.title}</p>
                         <div class="flex items-center gap-3 mt-1.5">
                             ${t.priority ? `<span class="inline-flex items-center rounded-md bg-brand/10 px-2 py-0.5 text-[10px] font-bold text-brand">${t.priority}</span>` : ''}
@@ -249,20 +334,42 @@ async function loadTrendCharts() {
     if (typeof OS_DB === 'undefined' || typeof Chart === 'undefined') return;
     
     const tasks = await OS_DB.getTasks();
-    const finances = await OS_DB.getFinances();
+    const dbFinances = await OS_DB.getFinances();
+    const lsFinances = JSON.parse(localStorage.getItem('finance_transactions'));
+    const finances = lsFinances ? lsFinances : dbFinances;
 
-    // Prepare last 7 days array
+    // Setup date filters
+    const drInput = document.getElementById('filter-daterange');
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() - 6);
+    startDate.setHours(0,0,0,0);
+    let endDate = new Date();
+    endDate.setHours(23,59,59,999);
+
+    if (drInput && drInput.value && drInput.value.includes(' - ')) {
+        const parts = drInput.value.split(' - ');
+        startDate = new Date(parts[0]);
+        startDate.setHours(0,0,0,0);
+        endDate = new Date(parts[1]);
+        endDate.setHours(23,59,59,999);
+    }
+
     const last7Days = [];
-    const today = new Date();
-    for (let i = 6; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
-        last7Days.push(d.toISOString().slice(0, 10)); // YYYY-MM-DD
+    let current = new Date(startDate);
+    while (current <= endDate) {
+        last7Days.push(current.toISOString().slice(0, 10)); // YYYY-MM-DD
+        current.setDate(current.getDate() + 1);
+        
+        // Safety limit to avoid rendering too many points
+        if (last7Days.length > 90) break;
     }
     
     const displayLabels = last7Days.map(d => {
         const dateObj = new Date(d);
-        return dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+        if (last7Days.length > 31) {
+            return dateObj.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+        }
+        return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     });
 
     // 1. Task Velocity
@@ -300,7 +407,7 @@ async function loadTrendCharts() {
 
     // 2. Daily Expenses
     const expData = last7Days.map(dateStr => {
-        return finances.filter(f => f.type === 'expense' && f.date && f.date.startsWith(dateStr))
+        return finances.filter(f => (f.type === 'expense' || f.type === 'pengeluaran') && f.date && f.date.startsWith(dateStr))
                        .reduce((sum, f) => sum + (parseFloat(f.amount) || 0), 0);
     });
 

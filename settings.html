@@ -309,12 +309,24 @@
             data.notes = await OS_DB.getNotes();
             data.finances = await OS_DB.getFinances();
             data.events = await OS_DB.getEvents();
+            data.projects = await OS_DB.getProjects();
+            data.inbox = await db.inbox.toArray();
             
             // Get leftovers from localStorage
-            const keys = ['user_profile', 'activity_log', 'inbox_items'];
+            const keys = [
+                'user_profile', 'activity_log', 'inbox_items',
+                'finance_transactions', 'finance_accounts', 'finance_goals',
+                'task_columns', 'personal_os_notes', 'user_notes', 'tasks_view'
+            ];
             keys.forEach(k => {
                 const val = localStorage.getItem(k);
-                if (val) data[k] = JSON.parse(val);
+                if (val !== null) {
+                    try {
+                        data[k] = JSON.parse(val);
+                    } catch(e) {
+                        data[k] = val;
+                    }
+                }
             });
             
             data._exported_at = new Date().toISOString();
@@ -349,11 +361,23 @@
                 if (data.notes) { await db.notes.clear(); await db.notes.bulkPut(data.notes); }
                 if (data.finances) { await db.finances.clear(); await db.finances.bulkPut(data.finances); }
                 if (data.events) { await db.events.clear(); await db.events.bulkPut(data.events); }
+                if (data.projects) { await db.projects.clear(); await db.projects.bulkPut(data.projects); }
+                if (data.inbox) { await db.inbox.clear(); await db.inbox.bulkPut(data.inbox); }
                 
                 // Import into LocalStorage
-                const keys = ['user_profile','activity_log','inbox_items'];
+                const keys = [
+                    'user_profile', 'activity_log', 'inbox_items',
+                    'finance_transactions', 'finance_accounts', 'finance_goals',
+                    'task_columns', 'personal_os_notes', 'user_notes', 'tasks_view'
+                ];
                 keys.forEach(k => {
-                    if (data[k] !== undefined) localStorage.setItem(k, JSON.stringify(data[k]));
+                    if (data[k] !== undefined) {
+                        if (typeof data[k] === 'string') {
+                            localStorage.setItem(k, data[k]);
+                        } else {
+                            localStorage.setItem(k, JSON.stringify(data[k]));
+                        }
+                    }
                 });
                 
                 if (window.showToast) window.showToast('Data berhasil diimport! Halaman akan dimuat ulang...', 'success');

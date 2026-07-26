@@ -11,6 +11,17 @@ window.toggleProfileMenu = function(event) {
     if(event) event.stopPropagation();
 };
 
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('profile-dropdown');
+    const container = document.getElementById('profile-menu-container');
+    if (dropdown && container && !container.contains(e.target)) {
+        if (!dropdown.classList.contains('invisible')) {
+            dropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+            dropdown.classList.remove('scale-100');
+        }
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Personal OS Dashboard initialized.');
     

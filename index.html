@@ -24,10 +24,12 @@
         })(window, document, "clarity", "script", "xpxc0dqe5x");
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Daterangepicker CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <body
-    class="bg-background text-primary font-sans antialiased flex h-screen overflow-hidden selection:bg-primary selection:text-white">
+    class="bg-background text-primary font-sans antialiased flex h-[100dvh] overflow-hidden selection:bg-primary selection:text-white">
     <!-- Splash Screen -->
     <div id="splash-screen"
         class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background dark:bg-surface transition-opacity duration-500">
@@ -205,14 +207,19 @@
             <div class="max-w-6xl mx-auto p-6 lg:p-10 space-y-8 animate-fade-in">
 
                 <!-- Welcome Header -->
-                <div class="flex flex-col mb-8">
-                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white" id="dash-greeting">Good Morning, Alfa
-                        👋</h1>
-                    <p class="text-gray-500 mt-1 font-medium dark:text-gray-400" id="dash-date">Monday, 22 July 2026</p>
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                    <div class="flex flex-col">
+                        <h1 class="text-3xl font-bold text-gray-900 dark:text-white" id="dash-greeting">Good Morning, Alfa
+                            👋</h1>
+                        <p class="text-gray-500 mt-1 font-medium dark:text-gray-400" id="dash-date">Monday, 22 July 2026</p>
+                    </div>
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <input type="text" name="daterange" id="filter-daterange" class="px-3 py-2 bg-white border border-gray-200 rounded-xl text-sm dark:bg-[#18181b] dark:border-[#27272a] dark:text-white w-full md:w-[240px] text-center" placeholder="Select Date Range" />
+                    </div>
                 </div>
 
-                <!-- Financial Overview (Horizontal Scroll on Mobile) -->
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                <!-- Financial Overview -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
                     <!-- Wealth Card -->
                     <div
@@ -254,8 +261,11 @@
                                         d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                                 </svg>
                             </div>
+                            <span class="text-xs font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded-lg dark:bg-[#18181b] dark:text-gray-400 flex items-center gap-1" id="dash-income-pct">
+                                -
+                            </span>
                         </div>
-                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400">Income
+                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400" id="dash-income-label">Income
                             This Month</p>
                         <h3 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white mt-1" id="dash-income">Rp
                             0</h3>
@@ -274,8 +284,11 @@
                                         d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
                                 </svg>
                             </div>
+                            <span class="text-xs font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded-lg dark:bg-[#18181b] dark:text-gray-400 flex items-center gap-1" id="dash-expense-pct">
+                                -
+                            </span>
                         </div>
-                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400">Expense
+                        <p class="text-[10px] lg:text-sm font-medium text-gray-500 truncate dark:text-gray-400" id="dash-expense-label">Expense
                             This Month</p>
                         <h3 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white mt-1" id="dash-expense">
                             Rp 0</h3>
@@ -524,7 +537,7 @@
     <script src="js/crud.js"></script>
     <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
     <script src="js/db.js?v=1784691513581"></script>
-    <script src="js/dashboard_app.js?v=1784696577016"></script>
+    <script src="js/dashboard_app.js?v=202607262140"></script>
 
 
     <script>
@@ -591,6 +604,42 @@
 
 
     <script src="js/command_palette.js?v=1784689472923"></script>
+
+    <!-- Daterangepicker JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script>
+        $(function() {
+            var start = moment().startOf('month');
+            var end = moment().endOf('month');
+
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left',
+                startDate: start,
+                endDate: end,
+                ranges: {
+                   'Today': [moment(), moment()],
+                   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                   'This Month': [moment().startOf('month'), moment().endOf('month')],
+                   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            }, function(s, e, label) {
+                // Manually trigger the value update to be safe
+                $('input[name="daterange"]').val(s.format('YYYY-MM-DD') + ' - ' + e.format('YYYY-MM-DD'));
+                loadFinancialStats();
+                loadTrendCharts();
+            });
+
+            // Set the initial value on load so it matches our "This Month" fallback
+            $('input[name="daterange"]').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+        });
+    </script>
 </body>
 
 
