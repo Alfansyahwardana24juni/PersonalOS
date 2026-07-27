@@ -93,41 +93,69 @@ function renderTransactions() {
     // Sort desc
     filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
     
-    let html = '<div class="bg-surface border border-border rounded-xl overflow-hidden shadow-sm dark:bg-surface dark:border-[#27272a]">';
+    let html = '';
     if (filtered.length === 0) {
-        html += '<div class="p-4 text-center text-sm text-gray-500">Tidak ada transaksi</div>';
+        html = '<div class="bg-surface border border-border rounded-xl overflow-hidden shadow-sm dark:bg-surface dark:border-[#27272a]"><div class="p-4 text-center text-sm text-gray-500">Tidak ada transaksi</div></div>';
     } else {
+        // Group by Date string
+        const grouped = {};
         filtered.forEach(tx => {
-            const acc = accounts.find(a => a.id === tx.account);
-            const accName = acc ? acc.name : 'Unknown';
-            const isInc = tx.type === 'pemasukan';
-            const color = isInc ? 'green' : 'red';
-            const sign = isInc ? '+' : '-';
-            const icon = isInc ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>' : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l7 7m7 7V3"></path>';
+            const dateObj = new Date(tx.date);
             
-            const dateStr = new Date(tx.date).toLocaleDateString('id-ID');
+            // Format to "Hari Ini", "Kemarin", or "DD MMM YYYY"
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
             
-            html += `
-            <div onclick="openEditTxModal('${tx.id}')" class="flex items-center justify-between p-4 border-b border-border hover:bg-gray-50 cursor-pointer transition-colors group dark:border-[#27272a] dark:hover:bg-[#27272a]">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full bg-${color}-50 flex items-center justify-center shrink-0 dark:bg-${color}-500/10 dark:border-${color}-500/20">
-                        <svg class="w-5 h-5 text-${color}-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icon}</svg>
+            let dateKey = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            if (dateObj.toDateString() === today.toDateString()) {
+                dateKey = 'Hari Ini';
+            } else if (dateObj.toDateString() === yesterday.toDateString()) {
+                dateKey = 'Kemarin';
+            }
+            
+            if (!grouped[dateKey]) grouped[dateKey] = [];
+            grouped[dateKey].push(tx);
+        });
+
+        // Loop over grouped keys
+        Object.keys(grouped).forEach((dateKey, index) => {
+            html += `<h4 class="text-sm font-bold text-gray-800 dark:text-gray-200 mt-${index === 0 ? '0' : '6'} mb-3 ml-1">${dateKey}</h4>`;
+            html += '<div class="bg-surface border border-border rounded-xl overflow-hidden shadow-sm dark:bg-surface dark:border-[#27272a]">';
+            
+            grouped[dateKey].forEach((tx, idx) => {
+                const acc = accounts.find(a => a.id === tx.account);
+                const accName = acc ? acc.name : 'Unknown';
+                const isInc = tx.type === 'pemasukan';
+                const color = isInc ? 'green' : 'red';
+                const sign = isInc ? '+' : '-';
+                const circleIcon = isInc ? '🟢' : '🔴';
+                
+                const timeStr = new Date(tx.date).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                const borderClass = idx < grouped[dateKey].length - 1 ? 'border-b border-border dark:border-[#27272a]' : '';
+                
+                html += `
+                <div onclick="openEditTxModal('${tx.id}')" class="flex flex-col p-4 ${borderClass} hover:bg-gray-50 cursor-pointer transition-colors group dark:hover:bg-[#27272a]">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h4 class="text-sm font-semibold text-primary flex items-center gap-2">${circleIcon} ${tx.notes}</h4>
+                            <p class="text-xs text-gray-500 mt-1 dark:text-gray-400 pl-6">${accName}</p>
+                            <p class="text-xs text-gray-400 mt-0.5 pl-6">${timeStr}</p>
+                        </div>
+                        <div class="flex flex-col items-end justify-between h-full">
+                            <span class="text-sm font-bold text-${color}-600">${sign}Rp ${tx.amount.toLocaleString('id-ID')}</span>
+                            
+                            <button onclick="event.stopPropagation(); openDeleteConfirmModal('tx', '${tx.id}')" class="mt-2 p-1.5 text-gray-400 hover:text-danger opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity rounded hover:bg-red-50 dark:hover:bg-red-500/10" title="Hapus">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="text-sm font-semibold text-primary">${tx.notes}</h4>
-                        <p class="text-xs text-gray-500 mt-0.5 dark:text-gray-400">${dateStr} &bull; ${accName}${tx.category ? ' &bull; ' + tx.category : ''}</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-sm font-semibold text-${color}-500">${sign} Rp ${tx.amount.toLocaleString('id-ID')}</span>
-                    <button onclick="event.stopPropagation(); openDeleteConfirmModal('tx', '${tx.id}')" class="p-1.5 text-gray-400 hover:text-danger opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity" title="Hapus">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                    </button>
-                </div>
-            </div>`;
+                </div>`;
+            });
+            
+            html += '</div>';
         });
     }
-    html += '</div>';
     container.innerHTML = html;
     
     renderChart(filtered);
